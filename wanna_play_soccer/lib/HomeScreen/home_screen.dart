@@ -13,9 +13,14 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
+
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
-        backgroundColor: const Color(0xff20282D),
+        elevation: 0,
+        scrolledUnderElevation: 0,
+        backgroundColor: const Color(0xdd20282D),
         title: Container(
           padding: const EdgeInsets.all(20.0),
           child: const Text(
@@ -24,8 +29,18 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
         centerTitle: false,
+        flexibleSpace: ClipRRect(
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+            child: Container(
+              color: Colors.transparent,
+            ),
+          ),
+        ),
       ),
       body: Container(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topLeft,
@@ -36,12 +51,33 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
           ),
         ),
-        child: const Center(
-          child: Text(
-            '⚽️ Wanna Play Soccer? ⚽️',
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.only(
+                top: size.height * 0.15, bottom: 10.0, left: 20.0, right: 20.0),
+            child: const Center(
+              child: Column(
+                children: [
+                  Text(
+                    '⚽️ Wanna Play Soccer? ⚽️',
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  Text(
+                    'Additional content...',
+                    style: TextStyle(
+                      fontSize: 180,
+                      color: Colors.white,
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  // 필요에 따라 더 많은 위젯을 추가합니다.
+                ],
+              ),
             ),
           ),
         ),
