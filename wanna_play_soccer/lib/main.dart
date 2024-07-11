@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wanna_play_soccer/HomeScreen/home_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
         ),
         fontFamily: 'Pretendard',
       ),
-      home: SplashScreen(),
+      home: const HomeScreen(),
     );
   }
 }
