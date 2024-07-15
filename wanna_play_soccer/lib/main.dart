@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wanna_play_soccer/HomeScreen/home_screen.dart';
+import 'package:wanna_play_soccer/Theme/my_colors.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,9 +15,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: '⚽️ Wanna Play Soccer? ⚽️',
       theme: ThemeData(
-        primaryColor: const Color(0xff20282D),
+        primaryColor: MyColors.myBlack,
         colorScheme: ColorScheme.fromSwatch().copyWith(
-          secondary: const Color(0xff1EC1A4),
+          secondary: MyColors.primaryMint,
         ),
         fontFamily: 'Pretendard',
       ),

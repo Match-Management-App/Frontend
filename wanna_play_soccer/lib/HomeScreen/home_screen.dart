@@ -1,7 +1,8 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:wanna_play_soccer/HomeScreen/main_icon.dart';
+import 'package:wanna_play_soccer/Theme/my_colors.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -20,12 +21,12 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         elevation: 0,
         scrolledUnderElevation: 0,
-        backgroundColor: const Color(0xdd20282D),
+        backgroundColor: MyColors.myBlack,
         title: Container(
           padding: const EdgeInsets.all(20.0),
           child: const Text(
             '반갑습니다 User님 👏',
-            style: TextStyle(color: Color(0xffF5F9FC)),
+            style: TextStyle(color: MyColors.myWhite),
           ),
         ),
         centerTitle: false,
@@ -41,13 +42,14 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
+        // 배경색 설정
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: [
-              Color(0xff20282D),
-              Color(0xff38464F),
+              MyColors.myBlack,
+              MyColors.gradientGrey,
             ],
           ),
         ),
@@ -58,24 +60,16 @@ class _HomeScreenState extends State<HomeScreen> {
             child: const Center(
               child: Column(
                 children: [
-                  Text(
-                    '⚽️ Wanna Play Soccer? ⚽️',
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      SizedBox(width: 10.0),
+                      MainIcon(title: '홈'),
+                      MainIcon(title: '일정'),
+                      MainIcon(title: '기록'),
+                      SizedBox(width: 10.0),
+                    ],
                   ),
-                  SizedBox(height: 20),
-                  Text(
-                    'Additional content...',
-                    style: TextStyle(
-                      fontSize: 180,
-                      color: Colors.white,
-                    ),
-                  ),
-                  SizedBox(height: 20),
-                  // 필요에 따라 더 많은 위젯을 추가합니다.
                 ],
               ),
             ),
