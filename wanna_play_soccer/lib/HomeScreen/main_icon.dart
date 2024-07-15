@@ -18,7 +18,7 @@ class _MainIconState extends State<MainIcon> {
         fixedSize: const Size(60, 30),
         minimumSize: Size.zero,
         padding: EdgeInsets.zero,
-        backgroundColor: MyColors.primaryMint,
+        backgroundColor: MyColors.myDarkGrey,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20.0),
         ),
@@ -29,7 +29,7 @@ class _MainIconState extends State<MainIcon> {
       child: Text(
         widget.title,
         style: const TextStyle(
-          color: MyColors.myPointWhite,
+          color: MyColors.myGrey,
           fontWeight: FontWeight.bold,
         ),
       ),

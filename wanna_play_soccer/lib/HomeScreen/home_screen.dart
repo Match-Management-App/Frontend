@@ -18,27 +18,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Scaffold(
       extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        elevation: 0,
-        scrolledUnderElevation: 0,
-        backgroundColor: MyColors.myBlack,
-        title: Container(
-          padding: const EdgeInsets.all(20.0),
-          child: const Text(
-            '반갑습니다 User님 👏',
-            style: TextStyle(color: MyColors.myWhite),
-          ),
-        ),
-        centerTitle: false,
-        flexibleSpace: ClipRRect(
-          child: BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-            child: Container(
-              color: Colors.transparent,
-            ),
-          ),
-        ),
-      ),
+      appBar: const MyAppBar(),
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
@@ -60,6 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: const Center(
               child: Column(
                 children: [
+                  // 메인 아이콘
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
@@ -78,4 +59,38 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+}
+
+class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
+  const MyAppBar({super.key});
+
+  // v1/users/name
+
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      elevation: 0,
+      scrolledUnderElevation: 0,
+      backgroundColor: MyColors.myBlack,
+      title: Container(
+        padding: const EdgeInsets.all(20.0),
+        child: const Text(
+          '반갑습니다 User님 👏',
+          style: TextStyle(color: MyColors.myWhite),
+        ),
+      ),
+      centerTitle: false,
+      flexibleSpace: ClipRRect(
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+          child: Container(
+            color: Colors.transparent,
+          ),
+        ),
+      ),
+    );
+  }
+
+  @override
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }
