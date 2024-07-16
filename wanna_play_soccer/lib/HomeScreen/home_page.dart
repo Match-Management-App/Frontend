@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wanna_play_soccer/Theme/my_colors.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -10,6 +11,27 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return const Text('홈 페이지');
+    return ListView(
+      padding: const EdgeInsets.all(20),
+      children: [
+        const Text(
+          'Home',
+          style: TextStyle(
+            color: MyColors.myWhite,
+            fontSize: 50,
+          ),
+        ),
+        // 스크롤 효과를 더 잘 보기 위한 추가 컨텐츠
+        for (int i = 0; i < 10; i++)
+          Container(
+            color: Colors.primaries[i % Colors.primaries.length],
+            height: 100,
+            margin: const EdgeInsets.only(top: 10),
+            alignment: Alignment.center,
+            child: Text('Item $i',
+                style: const TextStyle(color: MyColors.myWhite)),
+          ),
+      ],
+    );
   }
 }

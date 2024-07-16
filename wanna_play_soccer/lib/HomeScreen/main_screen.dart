@@ -4,6 +4,7 @@ import 'package:wanna_play_soccer/HomeScreen/main_icon.dart';
 import 'package:wanna_play_soccer/HomeScreen/my_app_bar.dart';
 import 'package:wanna_play_soccer/RecordScreen/record_page.dart';
 import 'package:wanna_play_soccer/ScheduleScreen/schedule_page.dart';
+import 'package:wanna_play_soccer/Theme/my_colors.dart';
 import 'package:wanna_play_soccer/Theme/my_theme.dart';
 
 class HomeScreen extends StatefulWidget {
