@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:wanna_play_soccer/Theme/my_colors.dart';
 
-class MainIcon extends StatefulWidget {
+class MainIcon extends StatelessWidget {
   final String title;
+  final int index;
+  final ValueChanged<int> onTap;
+  final bool isSelected;
 
-  const MainIcon({super.key, required this.title});
+  const MainIcon({
+    super.key,
+    required this.title,
+    required this.index,
+    required this.onTap,
+    required this.isSelected,
+  });
 
-  @override
-  State<MainIcon> createState() => _MainIconState();
-}
-
-class _MainIconState extends State<MainIcon> {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
@@ -18,18 +22,17 @@ class _MainIconState extends State<MainIcon> {
         fixedSize: const Size(60, 30),
         minimumSize: Size.zero,
         padding: EdgeInsets.zero,
-        backgroundColor: MyColors.myDarkGrey,
+        backgroundColor:
+            isSelected ? MyColors.primaryMint : MyColors.myDarkGrey,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20.0),
         ),
       ),
-      onPressed: () {
-        print(widget.title);
-      },
+      onPressed: () => onTap(index),
       child: Text(
-        widget.title,
-        style: const TextStyle(
-          color: MyColors.myGrey,
+        title,
+        style: TextStyle(
+          color: isSelected ? MyColors.myPointWhite : MyColors.myGrey,
           fontWeight: FontWeight.bold,
         ),
       ),
