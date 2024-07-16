@@ -4,7 +4,7 @@ import 'package:wanna_play_soccer/HomeScreen/main_icon.dart';
 import 'package:wanna_play_soccer/HomeScreen/my_app_bar.dart';
 import 'package:wanna_play_soccer/RecordScreen/record_page.dart';
 import 'package:wanna_play_soccer/ScheduleScreen/schedule_page.dart';
-import 'package:wanna_play_soccer/Theme/my_colors.dart';
+import 'package:wanna_play_soccer/Theme/my_theme.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -45,16 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
         // 배경색 설정
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              MyColors.myBlack,
-              MyColors.gradientGrey,
-            ],
-          ),
-        ),
+        decoration: MyTheme.backgroundColor,
         child: Column(
           children: [
             Padding(
@@ -69,18 +60,15 @@ class _HomeScreenState extends State<HomeScreen> {
                   const SizedBox(width: 10.0),
                   MainIcon(
                       title: '홈',
-                      index: 0,
-                      onTap: _onIconTapped,
+                      onTap: () => _onIconTapped(0),
                       isSelected: _selectedPageIndex == 0),
                   MainIcon(
                       title: '일정',
-                      index: 1,
-                      onTap: _onIconTapped,
+                      onTap: () => _onIconTapped(1),
                       isSelected: _selectedPageIndex == 1),
                   MainIcon(
                       title: '기록',
-                      index: 2,
-                      onTap: _onIconTapped,
+                      onTap: () => _onIconTapped(2),
                       isSelected: _selectedPageIndex == 2),
                   const SizedBox(width: 10.0),
                 ],

@@ -3,14 +3,12 @@ import 'package:wanna_play_soccer/Theme/my_colors.dart';
 
 class MainIcon extends StatelessWidget {
   final String title;
-  final int index;
-  final ValueChanged<int> onTap;
+  final VoidCallback onTap;
   final bool isSelected;
 
   const MainIcon({
     super.key,
     required this.title,
-    required this.index,
     required this.onTap,
     required this.isSelected,
   });
@@ -28,7 +26,7 @@ class MainIcon extends StatelessWidget {
           borderRadius: BorderRadius.circular(20.0),
         ),
       ),
-      onPressed: () => onTap(index),
+      onPressed: onTap,
       child: Text(
         title,
         style: TextStyle(
