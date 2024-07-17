@@ -11,8 +11,11 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
+
     return ListView(
-      padding: const EdgeInsets.all(20),
+      padding: EdgeInsets.only(
+          top: screenHeight * 0.14, bottom: 40, left: 20, right: 20),
       children: [
         const Text(
           'Home',
