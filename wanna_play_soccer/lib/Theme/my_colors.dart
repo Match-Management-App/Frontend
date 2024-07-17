@@ -5,7 +5,6 @@ class MyColors {
 
   static const Color myBlack = Color(0xff20282D);
   static const Color gradientGrey = Color(0xff38464F);
-  static const Color appBarBlack = Color(0xdd20282D);
 
   static const Color myDarkGrey = Color(0xff526068);
   static const Color myGrey = Color(0xffA5B1B7);

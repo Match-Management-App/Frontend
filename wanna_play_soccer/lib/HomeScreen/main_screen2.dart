@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:wanna_play_soccer/HomeScreen/home_page.dart';
@@ -76,8 +78,9 @@ class MyAppBar extends StatelessWidget {
     return SliverOverlapAbsorber(
       handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
       sliver: SliverAppBar(
+        expandedHeight: 120,
         title: Container(
-          padding: const EdgeInsets.all(10),
+          padding: const EdgeInsets.all(20),
           child: const Text(
             '안녕하세요 User 님👏',
             style: TextStyle(
@@ -86,12 +89,19 @@ class MyAppBar extends StatelessWidget {
             ),
           ),
         ),
+        flexibleSpace: ClipRRect(
+          child: Container(
+            decoration: BoxDecoration(
+              gradient: MyTheme.tabBarGradient,
+            ),
+          ),
+        ),
         centerTitle: false,
         pinned: true,
         floating: true,
         forceElevated: innerBoxIsScrolled,
         scrolledUnderElevation: 0,
-        backgroundColor: MyColors.myBlack,
+        backgroundColor: Colors.transparent,
         bottom: MyTabBar(
           tabController: tabController,
         ),
@@ -114,10 +124,6 @@ class MyTabBar extends StatelessWidget implements PreferredSizeWidget {
           controller: tabController,
           labelColor: MyColors.myPointWhite,
           unselectedLabelColor: MyColors.myGrey,
-          // indicator: const BoxDecoration(
-          //   color: MyColors.primaryMint,
-          //   borderRadius: BorderRadius.all(Radius.circular(10)),
-          // ),
           dividerColor: Colors.transparent,
           tabs: const [
             // SizedBox(width: 20.0),
