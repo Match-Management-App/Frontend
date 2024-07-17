@@ -17,10 +17,16 @@ class MyTheme {
     MyColors.myBlack,
     MyColors.myBlack,
     MyColors.myBlack,
+    MyColors.myBlack,
+    MyColors.myBlack,
+    MyColors.myBlack,
+    MyColors.myBlack,
     MyColors.myBlack.withOpacity(0.9),
+    MyColors.myBlack.withOpacity(0.8),
     MyColors.myBlack.withOpacity(0.7),
     MyColors.myBlack.withOpacity(0.5),
-    MyColors.myBlack.withOpacity(0.2),
+    MyColors.myBlack.withOpacity(0.3),
+    MyColors.myBlack.withOpacity(0.1),
     MyColors.myBlack.withOpacity(0.0),
   ], begin: Alignment.topCenter, end: Alignment.bottomCenter);
 }
