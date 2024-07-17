@@ -90,6 +90,7 @@ class MyAppBar extends StatelessWidget {
         pinned: true,
         floating: true,
         forceElevated: innerBoxIsScrolled,
+        scrolledUnderElevation: 0,
         backgroundColor: MyColors.myBlack,
         bottom: MyTabBar(
           tabController: tabController,
@@ -106,20 +107,46 @@ class MyTabBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TabBar(
-      controller: tabController,
-      labelColor: MyColors.myPointWhite,
-      unselectedLabelColor: MyColors.myGrey,
-      indicatorColor: MyColors.primaryMint,
-      dividerColor: Colors.transparent,
-      tabs: const [
-        Tab(text: '홈'),
-        Tab(text: '일정'),
-        Tab(text: '기록'),
-      ],
+    return Center(
+      child: SizedBox(
+        width: MediaQuery.of(context).size.width * 0.6,
+        child: TabBar(
+          controller: tabController,
+          labelColor: MyColors.myPointWhite,
+          unselectedLabelColor: MyColors.myGrey,
+          // indicator: const BoxDecoration(
+          //   color: MyColors.primaryMint,
+          //   borderRadius: BorderRadius.all(Radius.circular(10)),
+          // ),
+          dividerColor: Colors.transparent,
+          tabs: const [
+            // SizedBox(width: 20.0),
+            MyTab(text: '홈'),
+            Tab(text: '일정'),
+            Tab(text: '기록'),
+            // SizedBox(width: 20.0),
+          ],
+        ),
+      ),
     );
   }
 
   @override
   Size get preferredSize => const Size.fromHeight(kTextTabBarHeight);
+}
+
+class MyTab extends StatelessWidget {
+  const MyTab({
+    super.key,
+    required this.text,
+  });
+
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return Tab(
+      text: text,
+    );
+  }
 }
