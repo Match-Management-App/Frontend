@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:wanna_play_soccer/HomeScreen/home_page.dart';
 import 'package:wanna_play_soccer/RecordScreen/record_page.dart';
 import 'package:wanna_play_soccer/ScheduleScreen/schedule_page.dart';
+import 'package:wanna_play_soccer/Theme/my_colors.dart';
 import 'package:wanna_play_soccer/Theme/my_theme.dart';
 
 class HomeScreen2 extends StatefulWidget {
@@ -38,24 +39,10 @@ class _HomeScreen2State extends State<HomeScreen2>
           child: NestedScrollView(
             headerSliverBuilder:
                 (BuildContext context, bool innerBoxIsScrolled) {
-              return <Widget>[
-                SliverOverlapAbsorber(
-                  handle:
-                      NestedScrollView.sliverOverlapAbsorberHandleFor(context),
-                  sliver: SliverAppBar(
-                    title: const Text('test'),
-                    pinned: true,
-                    floating: true,
-                    forceElevated: innerBoxIsScrolled,
-                    bottom: TabBar(
-                      controller: _tabController,
-                      tabs: const [
-                        Tab(text: '홈'),
-                        Tab(text: '일정'),
-                        Tab(text: '기록'),
-                      ],
-                    ),
-                  ),
+              return [
+                MyAppBar(
+                  tabController: _tabController,
+                  innerBoxIsScrolled: innerBoxIsScrolled,
                 ),
               ];
             },
@@ -74,50 +61,65 @@ class _HomeScreen2State extends State<HomeScreen2>
   }
 }
 
-// class _TabContent extends StatelessWidget {
-//   final String tabName;
+class MyAppBar extends StatelessWidget {
+  const MyAppBar({
+    super.key,
+    required this.tabController,
+    required this.innerBoxIsScrolled,
+  });
 
-//   const _TabContent({super.key, required this.tabName});
+  final TabController tabController;
+  final bool innerBoxIsScrolled;
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return SafeArea(
-//       top: false,
-//       bottom: false,
-//       child: Builder(
-//         builder: (BuildContext context) {
-//           return CustomScrollView(
-//             key: PageStorageKey<String>(tabName),
-//             slivers: <Widget>[
-//               SliverOverlapInjector(
-//                 handle:
-//                     NestedScrollView.sliverOverlapAbsorberHandleFor(context),
-//               ),
-//               SliverPadding(
-//                 padding: const EdgeInsets.all(8.0),
-//                 sliver: SliverList(
-//                   delegate: SliverChildBuilderDelegate(
-//                     (BuildContext context, int index) {
-//                       return Container(
-//                         color:
-//                             Colors.primaries[index % Colors.primaries.length],
-//                         height: 100,
-//                         child: Center(
-//                           child: Text(
-//                             'Item $index',
-//                             style: const TextStyle(color: Colors.white),
-//                           ),
-//                         ),
-//                       );
-//                     },
-//                     childCount: 20,
-//                   ),
-//                 ),
-//               ),
-//             ],
-//           );
-//         },
-//       ),
-//     );
-//   }
-// }
+  @override
+  Widget build(BuildContext context) {
+    return SliverOverlapAbsorber(
+      handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
+      sliver: SliverAppBar(
+        title: Container(
+          padding: const EdgeInsets.all(10),
+          child: const Text(
+            '안녕하세요 User 님👏',
+            style: TextStyle(
+              color: MyColors.myPointWhite,
+              fontSize: 24,
+            ),
+          ),
+        ),
+        centerTitle: false,
+        pinned: true,
+        floating: true,
+        forceElevated: innerBoxIsScrolled,
+        backgroundColor: MyColors.myBlack,
+        bottom: MyTabBar(
+          tabController: tabController,
+        ),
+      ),
+    );
+  }
+}
+
+class MyTabBar extends StatelessWidget implements PreferredSizeWidget {
+  const MyTabBar({super.key, required this.tabController});
+
+  final TabController tabController;
+
+  @override
+  Widget build(BuildContext context) {
+    return TabBar(
+      controller: tabController,
+      labelColor: MyColors.myPointWhite,
+      unselectedLabelColor: MyColors.myGrey,
+      indicatorColor: MyColors.primaryMint,
+      dividerColor: Colors.transparent,
+      tabs: const [
+        Tab(text: '홈'),
+        Tab(text: '일정'),
+        Tab(text: '기록'),
+      ],
+    );
+  }
+
+  @override
+  Size get preferredSize => const Size.fromHeight(kTextTabBarHeight);
+}
