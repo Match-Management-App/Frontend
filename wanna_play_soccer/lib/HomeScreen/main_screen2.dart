@@ -132,7 +132,7 @@ class _MyTabBarState extends State<MyTabBar> {
   Widget build(BuildContext context) {
     return Center(
       child: SizedBox(
-        width: MediaQuery.of(context).size.width * 0.7,
+        width: MediaQuery.of(context).size.width * 0.6,
         child: TabBar(
           controller: widget.tabController,
           labelColor: MyColors.myPointWhite,
@@ -174,10 +174,17 @@ class _MyTabState extends State<MyTab> {
       // text: text,
       child: Container(
         width: 60,
-        padding: const EdgeInsets.symmetric(vertical: 5),
+        padding: const EdgeInsets.symmetric(vertical: 4),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
           color: widget.isSelected ? MyColors.primaryMint : MyColors.myDarkGrey,
+          boxShadow: [
+            BoxShadow(
+              color: MyColors.myBlack.withOpacity(0.7),
+              blurRadius: 7,
+              offset: const Offset(2, 3),
+            ),
+          ],
         ),
         child: Text(
           widget.text,
