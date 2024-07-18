@@ -13,6 +13,12 @@ class MyTheme {
     ),
   );
 
+  static BoxShadow iconShadow = BoxShadow(
+    color: MyColors.myBlack.withOpacity(0.7),
+    blurRadius: 7,
+    offset: const Offset(2, 3),
+  );
+
   static LinearGradient tabBarGradient = LinearGradient(colors: [
     MyColors.myBlack,
     MyColors.myBlack,

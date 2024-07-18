@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wanna_play_soccer/Theme/my_colors.dart';
+import 'package:wanna_play_soccer/Theme/my_theme.dart';
 
 class MyTab extends StatefulWidget {
   const MyTab({
@@ -29,13 +30,7 @@ class _MyTabState extends State<MyTab> {
             borderRadius: BorderRadius.circular(20),
             color:
                 widget.isSelected ? MyColors.primaryMint : MyColors.myDarkGrey,
-            boxShadow: [
-              BoxShadow(
-                color: MyColors.myBlack.withOpacity(0.7),
-                blurRadius: 7,
-                offset: const Offset(2, 3),
-              ),
-            ],
+            boxShadow: [MyTheme.iconShadow],
           ),
           child: Text(
             widget.text,
