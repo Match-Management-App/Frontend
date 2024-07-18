@@ -10,6 +10,8 @@ class MyColors {
   static const Color myGrey = Color(0xffA5B1B7);
   static const Color myLightGrey = Color(0xffD6DDE2);
 
+  static const Color widgetGrey = Color(0x77526068);
+
   static const Color myWhite = Color(0xffF5F9FC);
   static const Color myPointWhite = Color(0xffF4F4E1);
 }

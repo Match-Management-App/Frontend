@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wanna_play_soccer/Component/subtitle.dart';
+import 'package:wanna_play_soccer/Theme/my_colors.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -21,10 +22,17 @@ class _HomePageState extends State<HomePage> {
           children: [
             const Subtitle(icon: "📆", subtitle: "다음 경기"),
             Container(
-              height: 1000,
+              height: 120,
               width: double.infinity,
-              color: Colors.indigo,
-            )
+              decoration: BoxDecoration(
+                color: MyColors.widgetGrey,
+                borderRadius: BorderRadius.circular(28),
+              ),
+            ),
+            const SizedBox(height: 15),
+            const Subtitle(icon: "🏅", subtitle: "나의 기록"),
+            const SizedBox(height: 15),
+            const Subtitle(icon: "👯", subtitle: "짝궁 찾기"),
           ],
         ),
       ),
