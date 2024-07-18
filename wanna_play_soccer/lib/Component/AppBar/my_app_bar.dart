@@ -42,9 +42,10 @@ class MyAppBar extends StatelessWidget {
         scrolledUnderElevation: 0,
         backgroundColor: Colors.transparent,
         bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(kTextTabBarHeight + 20),
+          preferredSize: const Size.fromHeight(kTextTabBarHeight + 40),
           child: Container(
             padding: const EdgeInsets.only(bottom: 20.0),
+            height: kTextTabBarHeight + 40,
             child: MyTabBar(tabController: tabController),
           ),
         ),

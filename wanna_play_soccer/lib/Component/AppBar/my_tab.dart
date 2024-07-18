@@ -22,10 +22,12 @@ class _MyTabState extends State<MyTab> {
     return Tab(
       // text: text,
       child: Container(
+        // height: 40,
         padding: const EdgeInsets.only(top: 20.0),
         child: Container(
           width: 60,
-          padding: const EdgeInsets.symmetric(vertical: 4),
+          height: 30,
+          padding: const EdgeInsets.symmetric(vertical: 3),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
             color:
