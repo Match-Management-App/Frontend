@@ -1,8 +1,5 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:wanna_play_soccer/HomeScreen/main_screen.dart';
-import 'package:wanna_play_soccer/HomeScreen/main_screen2.dart';
 import 'package:wanna_play_soccer/Theme/my_colors.dart';
 
 void main() {
@@ -24,7 +21,7 @@ class MyApp extends StatelessWidget {
         ),
         fontFamily: 'Pretendard',
       ),
-      home: const HomeScreen2(),
+      home: const HomeScreen(),
     );
   }
 }
