@@ -23,7 +23,7 @@ class MyAppBar extends StatelessWidget {
           child: const Text(
             '안녕하세요 User 님👏',
             style: TextStyle(
-              color: MyColors.myPointWhite,
+              color: MyColors.myWhite,
               fontSize: 24,
             ),
           ),

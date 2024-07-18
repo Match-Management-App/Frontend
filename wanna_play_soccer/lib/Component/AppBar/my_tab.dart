@@ -39,6 +39,7 @@ class _MyTabState extends State<MyTab> {
             style: TextStyle(
               color:
                   widget.isSelected ? MyColors.myPointWhite : MyColors.myGrey,
+              fontWeight: FontWeight.bold,
             ),
             textAlign: TextAlign.center,
           ),
