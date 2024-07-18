@@ -13,7 +13,7 @@ class MyTheme {
     ),
   );
 
-  static BoxShadow iconShadow = BoxShadow(
+  static BoxShadow defaultShadow = BoxShadow(
     color: MyColors.myBlack.withOpacity(0.7),
     blurRadius: 7,
     offset: const Offset(2, 3),
@@ -35,4 +35,9 @@ class MyTheme {
     MyColors.myBlack.withOpacity(0.1),
     MyColors.myBlack.withOpacity(0.0),
   ], begin: Alignment.topCenter, end: Alignment.bottomCenter);
+
+  static const TextStyle defaultText = TextStyle(
+    color: MyColors.myWhite,
+    fontSize: 18,
+  );
 }

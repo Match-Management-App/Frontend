@@ -32,7 +32,7 @@ class _MyTabState extends State<MyTab> {
             borderRadius: BorderRadius.circular(20),
             color:
                 widget.isSelected ? MyColors.primaryMint : MyColors.myDarkGrey,
-            boxShadow: [MyTheme.iconShadow],
+            boxShadow: [MyTheme.defaultShadow],
           ),
           child: Text(
             widget.text,
