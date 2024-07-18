@@ -1,7 +1,4 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:wanna_play_soccer/HomeScreen/home_page.dart';
 import 'package:wanna_play_soccer/RecordScreen/record_page.dart';
 import 'package:wanna_play_soccer/ScheduleScreen/schedule_page.dart';
@@ -110,49 +107,86 @@ class MyAppBar extends StatelessWidget {
   }
 }
 
-class MyTabBar extends StatelessWidget implements PreferredSizeWidget {
+class MyTabBar extends StatefulWidget implements PreferredSizeWidget {
   const MyTabBar({super.key, required this.tabController});
 
   final TabController tabController;
 
   @override
+  State<MyTabBar> createState() => _MyTabBarState();
+
+  @override
+  Size get preferredSize => const Size.fromHeight(kTextTabBarHeight);
+}
+
+class _MyTabBarState extends State<MyTabBar> {
+  @override
+  void initState() {
+    super.initState();
+    widget.tabController.addListener(() {
+      setState(() {});
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Center(
       child: SizedBox(
-        width: MediaQuery.of(context).size.width * 0.6,
+        width: MediaQuery.of(context).size.width * 0.7,
         child: TabBar(
-          controller: tabController,
+          controller: widget.tabController,
           labelColor: MyColors.myPointWhite,
           unselectedLabelColor: MyColors.myGrey,
           dividerColor: Colors.transparent,
-          tabs: const [
+          indicatorColor: Colors.transparent,
+          splashFactory: NoSplash.splashFactory,
+          tabs: [
             // SizedBox(width: 20.0),
-            MyTab(text: '홈'),
-            Tab(text: '일정'),
-            Tab(text: '기록'),
+            MyTab(text: '홈', isSelected: widget.tabController.index == 0),
+            MyTab(text: '일정', isSelected: widget.tabController.index == 1),
+            MyTab(text: '기록', isSelected: widget.tabController.index == 2),
             // SizedBox(width: 20.0),
           ],
         ),
       ),
     );
   }
-
-  @override
-  Size get preferredSize => const Size.fromHeight(kTextTabBarHeight);
 }
 
-class MyTab extends StatelessWidget {
+class MyTab extends StatefulWidget {
   const MyTab({
     super.key,
     required this.text,
+    required this.isSelected,
   });
 
   final String text;
+  final bool isSelected;
 
+  @override
+  State<MyTab> createState() => _MyTabState();
+}
+
+class _MyTabState extends State<MyTab> {
   @override
   Widget build(BuildContext context) {
     return Tab(
-      text: text,
+      // text: text,
+      child: Container(
+        width: 60,
+        padding: const EdgeInsets.symmetric(vertical: 5),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          color: widget.isSelected ? MyColors.primaryMint : MyColors.myDarkGrey,
+        ),
+        child: Text(
+          widget.text,
+          style: TextStyle(
+            color: widget.isSelected ? MyColors.myPointWhite : MyColors.myGrey,
+          ),
+          textAlign: TextAlign.center,
+        ),
+      ),
     );
   }
 }
