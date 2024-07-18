@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:wanna_play_soccer/Component/subtitle.dart';
 import 'package:wanna_play_soccer/Theme/my_colors.dart';
@@ -42,9 +44,12 @@ class _HomePageState extends State<HomePage> {
                       borderRadius: BorderRadius.circular(20),
                     ),
                   ),
-                  const SizedBox(
+                  Container(
                     width: 85,
-                    child: Column(
+                    margin: Platform.isIOS
+                        ? const EdgeInsets.only(right: 10)
+                        : null,
+                    child: const Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -71,9 +76,12 @@ class _HomePageState extends State<HomePage> {
                     indent: 20,
                     endIndent: 20,
                   ),
-                  const SizedBox(
+                  Container(
                     width: 120,
-                    child: Column(
+                    margin: Platform.isIOS
+                        ? const EdgeInsets.only(right: 15)
+                        : null,
+                    child: const Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
