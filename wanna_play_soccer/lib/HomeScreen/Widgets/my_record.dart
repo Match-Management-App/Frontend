@@ -150,8 +150,6 @@ class _MyRecordCalendarState extends State<MyRecordCalendar> {
                   margin: const EdgeInsets.all(5),
                   alignment: Alignment.center,
                   child: Container(
-                      width: 30,
-                      height: 30,
                       alignment: Alignment.center,
                       decoration: events.isNotEmpty
                           ? CalendarTheme.selectedDays
