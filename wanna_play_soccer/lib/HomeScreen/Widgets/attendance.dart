@@ -1,7 +1,6 @@
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:wanna_play_soccer/Theme/calendar.dart';
 import 'package:wanna_play_soccer/Theme/my_colors.dart';
@@ -12,47 +11,14 @@ class Event {
   Event({required this.title});
 }
 
-class MyRecordWidget extends StatefulWidget {
-  const MyRecordWidget({super.key});
-
-  @override
-  State<MyRecordWidget> createState() => _MyRecordWidgetState();
-}
-
-class _MyRecordWidgetState extends State<MyRecordWidget> {
-  final List<Widget> _pages = [
-    const MyRecordCalendar(),
-    Container(
-      margin: const EdgeInsets.all(20),
-      color: MyColors.myWhite,
-    ),
-  ];
-
-  late final PageController _controller;
-
-  @override
-  void initState() {
-    super.initState();
-    // for infinite loop
-    _controller = PageController(initialPage: 500);
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  Widget itemBuilder(BuildContext context, int index) {
-    // for infinite loop
-    return _pages[index % _pages.length];
-  }
+class Attendance extends StatelessWidget {
+  const Attendance({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: 350,
+      height: 320,
       decoration: BoxDecoration(
         color: MyColors.widgetGrey,
         borderRadius: BorderRadius.circular(28),
@@ -60,39 +26,16 @@ class _MyRecordWidgetState extends State<MyRecordWidget> {
       ),
       child: Column(
         children: [
-          SizedBox(
-            height: 320,
-            child: PageView.builder(
-              controller: _controller,
-              itemBuilder: itemBuilder,
-            ),
-          ),
-          SmoothPageIndicator(
-            controller: _controller,
-            count: _pages.length,
-            effect: const SlideEffect(
-              dotWidth: 8,
-              dotHeight: 8,
-              activeDotColor: MyColors.primaryMint,
-              dotColor: MyColors.widgetGrey,
-            ),
-          ),
+          AttendanceCalendar(),
         ],
       ),
     );
   }
 }
 
-class MyRecordCalendar extends StatefulWidget {
-  const MyRecordCalendar({
-    super.key,
-  });
+class AttendanceCalendar extends StatelessWidget {
+  AttendanceCalendar({super.key});
 
-  @override
-  State<MyRecordCalendar> createState() => _MyRecordCalendarState();
-}
-
-class _MyRecordCalendarState extends State<MyRecordCalendar> {
   static int getHashCode(DateTime key) {
     return key.day + key.month * 100 + key.year * 100;
   }
