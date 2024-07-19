@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:wanna_play_soccer/Theme/my_colors.dart';
 
@@ -22,7 +24,9 @@ class Subtitle extends StatelessWidget {
         children: [
           Text(
             icon,
-            style: const TextStyle(fontSize: 28),
+            style: Platform.isIOS
+                ? const TextStyle(fontSize: 28)
+                : const TextStyle(fontSize: 22),
           ),
           const SizedBox(
             width: 10,
