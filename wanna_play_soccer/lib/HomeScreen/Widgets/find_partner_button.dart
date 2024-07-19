@@ -1,18 +1,13 @@
 import "package:flutter/material.dart";
-import "package:wanna_play_soccer/FindPartner/find_partner.dart";
+import "package:wanna_play_soccer/FindPartner/find_partner_page.dart";
 import "package:wanna_play_soccer/Theme/my_colors.dart";
 import "package:wanna_play_soccer/Theme/my_theme.dart";
 
-class FindPartnerButton extends StatefulWidget {
+class FindPartnerButton extends StatelessWidget {
   const FindPartnerButton({
     super.key,
   });
 
-  @override
-  State<FindPartnerButton> createState() => _FindPartnerButtonState();
-}
-
-class _FindPartnerButtonState extends State<FindPartnerButton> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
