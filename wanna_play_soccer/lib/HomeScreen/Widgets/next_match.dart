@@ -26,10 +26,7 @@ class NextMatch extends StatelessWidget {
             height: 80,
             width: 5,
             margin: const EdgeInsets.only(left: 10),
-            decoration: BoxDecoration(
-              color: MyColors.primaryMint,
-              borderRadius: BorderRadius.circular(20),
-            ),
+            decoration: MyTheme.pipeDecoration,
           ),
           Container(
             width: 85,

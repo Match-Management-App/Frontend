@@ -40,4 +40,9 @@ class MyTheme {
     color: MyColors.myWhite,
     fontSize: 18,
   );
+
+  static BoxDecoration pipeDecoration = BoxDecoration(
+    color: MyColors.primaryMint,
+    borderRadius: BorderRadius.circular(20),
+  );
 }
