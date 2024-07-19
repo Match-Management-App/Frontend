@@ -149,22 +149,17 @@ class _MyRecordCalendarState extends State<MyRecordCalendar> {
                 return Container(
                   margin: const EdgeInsets.all(5),
                   alignment: Alignment.center,
-                  child: Stack(
-                    // * 날짜가 뒤로 가길래.. 마커 위에 날짜 다시 박음
-                    alignment: Alignment.center,
-                    children: [
-                      if (events.isNotEmpty)
-                        Container(
-                          width: 30,
-                          height: 30,
-                          decoration: CalendarTheme.selectedDays,
-                        ),
-                      Text(
+                  child: Container(
+                      width: 30,
+                      height: 30,
+                      alignment: Alignment.center,
+                      decoration: events.isNotEmpty
+                          ? CalendarTheme.selectedDays
+                          : const BoxDecoration(),
+                      child: Text(
                         '${day.day}',
                         style: CalendarTheme.defaultTextStyle,
-                      ),
-                    ],
-                  ),
+                      )),
                 );
               },
             ),
