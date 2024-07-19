@@ -101,6 +101,7 @@ class _MyRecordCalendarState extends State<MyRecordCalendar> {
   // DateTime() 출력하면 2024-07-01 00:00:00.000 이라서 그런가..?
   // 암튼 저렇게 접근하면 event를 가져오지 못 함.
   // 그래서 해시코드를 저렇게 만들어 주니까 ㄱㅊ았음
+  // TODO: API > month, event
 
   final _events = LinkedHashMap<DateTime, List<Event>>(
     equals: isSameDay,
