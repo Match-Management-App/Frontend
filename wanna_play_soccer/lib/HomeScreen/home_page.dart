@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:wanna_play_soccer/Component/subtitle.dart';
 import 'package:wanna_play_soccer/HomeScreen/Widgets/my_record.dart';
 import 'package:wanna_play_soccer/HomeScreen/Widgets/next_match.dart';
-import 'package:wanna_play_soccer/Theme/my_colors.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

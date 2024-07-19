@@ -18,7 +18,7 @@ class _MyRecordWidgetState extends State<MyRecordWidget> {
     ),
     Container(
       margin: const EdgeInsets.all(20),
-      color: MyColors.myBlack,
+      color: MyColors.myWhite,
     ),
   ];
 
@@ -27,7 +27,8 @@ class _MyRecordWidgetState extends State<MyRecordWidget> {
   @override
   void initState() {
     super.initState();
-    _controller = PageController(initialPage: 0);
+    // for infinite loop
+    _controller = PageController(initialPage: 500);
   }
 
   @override
@@ -37,6 +38,7 @@ class _MyRecordWidgetState extends State<MyRecordWidget> {
   }
 
   Widget itemBuilder(BuildContext context, int index) {
+    // for infinite loop
     return _pages[index % _pages.length];
   }
 
