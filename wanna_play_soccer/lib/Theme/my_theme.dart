@@ -45,4 +45,10 @@ class MyTheme {
     color: MyColors.primaryMint,
     borderRadius: BorderRadius.circular(20),
   );
+
+  // Text
+  static const TextStyle header3 = TextStyle(
+    color: MyColors.myWhite,
+    fontSize: 20,
+  );
 }

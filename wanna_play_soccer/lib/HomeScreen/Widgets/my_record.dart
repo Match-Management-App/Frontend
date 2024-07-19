@@ -1,8 +1,16 @@
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:wanna_play_soccer/Theme/calendar.dart';
 import 'package:wanna_play_soccer/Theme/my_colors.dart';
 import 'package:wanna_play_soccer/Theme/my_theme.dart';
+
+class Event {
+  final String title;
+  Event({required this.title});
+}
 
 class MyRecordWidget extends StatefulWidget {
   const MyRecordWidget({super.key});
@@ -75,35 +83,45 @@ class _MyRecordWidgetState extends State<MyRecordWidget> {
   }
 }
 
-class MyRecordCalendar extends StatelessWidget {
+class MyRecordCalendar extends StatefulWidget {
   const MyRecordCalendar({
     super.key,
   });
 
   @override
+  State<MyRecordCalendar> createState() => _MyRecordCalendarState();
+}
+
+class _MyRecordCalendarState extends State<MyRecordCalendar> {
+  static int getHashCode(DateTime key) {
+    return key.day + key.month * 100 + key.year * 100;
+  }
+  // * 뭔가.. DateTime이 key일 때 이상한가..
+  // eventDate 출력하면 2024-07-01 00:00:00.000Z 이거고
+  // DateTime() 출력하면 2024-07-01 00:00:00.000 이라서 그런가..?
+  // 암튼 저렇게 접근하면 event를 가져오지 못 함.
+  // 그래서 해시코드를 저렇게 만들어 주니까 ㄱㅊ았음
+
+  final _events = LinkedHashMap<DateTime, List<Event>>(
+    equals: isSameDay,
+    hashCode: getHashCode,
+  )..addAll({
+      DateTime(2024, 7, 4): [Event(title: "Event on July 4")],
+      DateTime(2024, 7, 12): [Event(title: "Event on July 5")],
+    });
+
+  List<Event> _getEventsForDay(DateTime day) {
+    return _events[day] ?? [];
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.all(20),
+      margin: const EdgeInsets.only(top: 25, bottom: 15, left: 25, right: 25),
       // color: MyColors.myBlack,
       child: Column(
         children: [
-          Row(
-            children: [
-              Container(
-                width: 3,
-                height: 30,
-                margin: const EdgeInsets.only(right: 10),
-                decoration: MyTheme.pipeDecoration,
-              ),
-              const Text(
-                "7월",
-                style: TextStyle(
-                  color: MyColors.myWhite,
-                  fontSize: 20,
-                ),
-              ),
-            ],
-          ),
+          const Header3(text: "7월"),
           const SizedBox(height: 20),
           TableCalendar(
             focusedDay: DateTime.now(),
@@ -113,38 +131,72 @@ class MyRecordCalendar extends StatelessWidget {
             rowHeight: 40,
             headerVisible: false,
             daysOfWeekStyle: const DaysOfWeekStyle(
-              weekdayStyle: TextStyle(
-                color: MyColors.myGrey,
-                fontSize: 12,
-              ),
-              weekendStyle: TextStyle(
-                color: MyColors.myGrey,
-                fontSize: 12,
-              ),
+              weekdayStyle: CalendarTheme.daysOfWeekStyle,
+              weekendStyle: CalendarTheme.daysOfWeekStyle,
             ),
-            calendarStyle: const CalendarStyle(
-              // isTodayHighlighted: false,
+            calendarStyle: CalendarStyle(
               outsideDaysVisible: false,
-              selectedDecoration: BoxDecoration(
-                color: MyColors.primaryMint,
-                shape: BoxShape.circle,
-              ),
-              todayDecoration: BoxDecoration(
-                color: MyColors.primaryMint,
-                shape: BoxShape.circle,
-              ),
-              weekendTextStyle: TextStyle(
-                color: MyColors.myWhite,
-                fontSize: 16,
-              ),
-              defaultTextStyle: TextStyle(
-                color: MyColors.myWhite,
-                fontSize: 16,
-              ),
+              cellMargin: const EdgeInsets.all(4),
+              todayDecoration: CalendarTheme.today,
+              selectedDecoration: CalendarTheme.selectedDays,
+              weekendTextStyle: CalendarTheme.defaultTextStyle,
+              defaultTextStyle: CalendarTheme.defaultTextStyle,
+            ),
+            calendarBuilders: CalendarBuilders(
+              defaultBuilder: (context, day, focusedDay) {
+                final events = _getEventsForDay(day);
+                return Container(
+                  margin: const EdgeInsets.all(5),
+                  alignment: Alignment.center,
+                  child: Stack(
+                    // * 날짜가 뒤로 가길래.. 마커 위에 날짜 다시 박음
+                    alignment: Alignment.center,
+                    children: [
+                      if (events.isNotEmpty)
+                        Container(
+                          width: 30,
+                          height: 30,
+                          decoration: CalendarTheme.selectedDays,
+                        ),
+                      Text(
+                        '${day.day}',
+                        style: CalendarTheme.defaultTextStyle,
+                      ),
+                    ],
+                  ),
+                );
+              },
             ),
           )
         ],
       ),
+    );
+  }
+}
+
+class Header3 extends StatelessWidget {
+  const Header3({
+    super.key,
+    required this.text,
+  });
+
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Container(
+          width: 3,
+          height: 30,
+          margin: const EdgeInsets.only(right: 10),
+          decoration: MyTheme.pipeDecoration,
+        ),
+        Text(
+          text,
+          style: MyTheme.header3,
+        ),
+      ],
     );
   }
 }
