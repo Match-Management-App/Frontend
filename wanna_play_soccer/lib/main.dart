@@ -20,6 +20,11 @@ class MyApp extends StatelessWidget {
           secondary: MyColors.primaryMint,
         ),
         fontFamily: 'Pretendard',
+        textButtonTheme: TextButtonThemeData(
+          style: ButtonStyle(
+            overlayColor: MaterialStateProperty.all(Colors.transparent),
+          ),
+        ),
       ),
       home: const HomeScreen(),
     );
