@@ -6,6 +6,7 @@ import 'package:wanna_play_soccer/Component/Calendar/event.dart';
 import 'package:wanna_play_soccer/Component/subtitle.dart';
 import 'package:wanna_play_soccer/Component/Calendar/calendar_widget.dart';
 import 'package:wanna_play_soccer/RecordScreen/Widget/next_match_container.dart';
+import 'package:wanna_play_soccer/Theme/my_colors.dart';
 import 'package:wanna_play_soccer/Theme/my_theme.dart';
 
 class RecordPage extends StatefulWidget {
@@ -17,14 +18,14 @@ class RecordPage extends StatefulWidget {
 
 class _RecordPageState extends State<RecordPage> {
   DateTime? selectedDate;
+  bool isCalendarClicked = false;
 
   void onPressed(DateTime date) {
     setState(() {
       if (_events[date]?.isNotEmpty ?? false) {
-        // 이벤트가 있는 날짜인 경우
+        isCalendarClicked = true;
         selectedDate = (selectedDate == date) ? null : date;
       } else {
-        // 이벤트가 없는 날짜인 경우
         selectedDate = null;
       }
     });
@@ -60,7 +61,12 @@ class _RecordPageState extends State<RecordPage> {
               events: _events,
               onPressed: onPressed,
             ),
-            if (selectedDate != null) CommentSection(date: selectedDate!),
+            if (isCalendarClicked) ...[
+              if (selectedDate != null)
+                CommentSection(date: selectedDate!)
+              else
+                const DefaultSection()
+            ]
           ],
         ),
       ),
@@ -68,7 +74,6 @@ class _RecordPageState extends State<RecordPage> {
   }
 }
 
-// 새로운 위젯: 댓글 섹션
 class CommentSection extends StatelessWidget {
   final DateTime date;
 
@@ -81,6 +86,28 @@ class CommentSection extends StatelessWidget {
       width: double.infinity,
       height: 320,
       decoration: MyTheme.widgetDecoration,
+    );
+  }
+}
+
+class DefaultSection extends StatelessWidget {
+  const DefaultSection({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      alignment: Alignment.topCenter,
+      margin: const EdgeInsets.only(top: 20),
+      padding: const EdgeInsets.only(top: 30),
+      width: double.infinity,
+      height: 320,
+      // child: const Text(
+      //   "댓글 기능을 사용할 수 없습니다.",
+      //   style: TextStyle(
+      //     fontSize: 14,
+      //     color: MyColors.myGrey,
+      //   ),
+      // ),
     );
   }
 }
