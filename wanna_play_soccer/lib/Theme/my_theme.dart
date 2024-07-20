@@ -53,6 +53,11 @@ class MyTheme {
   );
 
   // Text
+  static const TextStyle header2 = TextStyle(
+    color: MyColors.myWhite,
+    fontSize: 24,
+  );
+
   static const TextStyle header3 = TextStyle(
     color: MyColors.myWhite,
     fontSize: 20,

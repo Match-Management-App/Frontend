@@ -32,7 +32,7 @@ class FindPartnerButton extends StatelessWidget {
         },
         child: const Text(
           "내 환상/환장의 짝궁은?",
-          style: MyTheme.defaultText,
+          style: MyTheme.header3,
         ),
       ),
     );
