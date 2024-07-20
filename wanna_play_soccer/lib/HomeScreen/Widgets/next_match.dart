@@ -14,11 +14,7 @@ class NextMatch extends StatelessWidget {
     return Container(
       height: 120,
       width: double.infinity,
-      decoration: BoxDecoration(
-        color: MyColors.widgetGrey,
-        borderRadius: BorderRadius.circular(28),
-        boxShadow: [MyTheme.defaultShadow],
-      ),
+      decoration: MyTheme.widgetDecoration,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [

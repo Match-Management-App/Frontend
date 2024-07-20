@@ -3,7 +3,6 @@ import 'dart:collection';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:wanna_play_soccer/Theme/calendar.dart';
-import 'package:wanna_play_soccer/Theme/my_colors.dart';
 import 'package:wanna_play_soccer/Theme/my_theme.dart';
 
 class Event {
@@ -19,11 +18,7 @@ class Attendance extends StatelessWidget {
     return Container(
       width: double.infinity,
       height: 320,
-      decoration: BoxDecoration(
-        color: MyColors.widgetGrey,
-        borderRadius: BorderRadius.circular(28),
-        boxShadow: [MyTheme.defaultShadow],
-      ),
+      decoration: MyTheme.widgetDecoration,
       child: Column(
         children: [
           AttendanceCalendar(),

@@ -13,6 +13,12 @@ class MyTheme {
     ),
   );
 
+  static BoxDecoration widgetDecoration = BoxDecoration(
+    color: MyColors.widgetGrey,
+    borderRadius: BorderRadius.circular(20),
+    boxShadow: [MyTheme.defaultShadow],
+  );
+
   static BoxShadow defaultShadow = BoxShadow(
     color: MyColors.myBlack.withOpacity(0.7),
     blurRadius: 7,
