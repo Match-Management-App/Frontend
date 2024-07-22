@@ -93,7 +93,7 @@ class _MyCalendarState extends State<MYCalendar> {
             daysOfWeekHeight: 30,
             rowHeight: 40,
             headerStyle: HeaderStyle(
-              titleCentered: isWidgetVisible,
+              titleCentered: true,
               titleTextFormatter: (date, locale) => '${date.month}월',
               titleTextStyle: CalendarTheme.headerTextStyle,
               formatButtonVisible: false,
