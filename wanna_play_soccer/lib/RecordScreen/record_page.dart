@@ -18,15 +18,16 @@ class RecordPage extends StatefulWidget {
 
 class _RecordPageState extends State<RecordPage> {
   DateTime? selectedDate;
-  bool isCalendarClicked = false;
+  bool isNonMatchDayClicked = false;
 
   void onPressed(DateTime date) {
     setState(() {
       if (_events[date]?.isNotEmpty ?? false) {
-        isCalendarClicked = true;
+        isNonMatchDayClicked = false;
         selectedDate = (selectedDate == date) ? null : date;
       } else {
         selectedDate = null;
+        isNonMatchDayClicked = !isNonMatchDayClicked;
       }
     });
     // print("onPressed: $date");
@@ -61,12 +62,10 @@ class _RecordPageState extends State<RecordPage> {
               events: _events,
               onPressed: onPressed,
             ),
-            if (isCalendarClicked) ...[
-              if (selectedDate != null)
-                CommentSection(date: selectedDate!)
-              else
-                const DefaultSection()
-            ]
+            if (selectedDate != null)
+              CommentSection(date: selectedDate!)
+            else if (isNonMatchDayClicked)
+              const DefaultSection()
           ],
         ),
       ),
