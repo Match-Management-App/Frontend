@@ -86,79 +86,92 @@ class _MyCalendarState extends State<MYCalendar> {
           top: containerPadding, bottom: 25, left: 25, right: 25),
       child: Column(
         children: [
-          TableCalendar(
-            focusedDay: _focusedDay,
-            firstDay: _firstDay,
-            lastDay: _lastDay,
-            daysOfWeekHeight: 30,
-            rowHeight: 40,
-            headerStyle: HeaderStyle(
-              titleCentered: true,
-              titleTextFormatter: (date, locale) => '${date.month}월',
-              titleTextStyle: CalendarTheme.headerTextStyle,
-              formatButtonVisible: false,
-              headerPadding: EdgeInsets.symmetric(horizontal: headerPadding),
-              headerMargin: EdgeInsets.only(bottom: headerPadding),
-              leftChevronVisible: isWidgetVisible,
-              rightChevronVisible: isWidgetVisible,
-              leftChevronMargin: EdgeInsets.zero,
-              rightChevronMargin: EdgeInsets.zero,
-              leftChevronPadding: EdgeInsets.zero,
-              rightChevronPadding: EdgeInsets.zero,
-              leftChevronIcon: Icon(
-                Icons.chevron_left,
-                color: _isFirstMonth()
-                    ? MyColors.myDarkGrey
-                    : MyColors.primaryMint,
-              ),
-              rightChevronIcon: Icon(
-                Icons.chevron_right,
-                color:
-                    _isLastMonth() ? MyColors.myDarkGrey : MyColors.primaryMint,
-              ),
-            ),
-            onPageChanged: (focusedDay) {
-              setState(() {
-                _focusedDay = focusedDay;
-              });
-            },
-            daysOfWeekStyle: const DaysOfWeekStyle(
-              weekdayStyle: CalendarTheme.daysOfWeekStyle,
-              weekendStyle: CalendarTheme.daysOfWeekStyle,
-            ),
-            calendarStyle: CalendarStyle(
-              outsideDaysVisible: false,
-              cellMargin: const EdgeInsets.all(4),
-              todayDecoration: CalendarTheme.today,
-              selectedDecoration: CalendarTheme.selectedDays,
-              weekendTextStyle: CalendarTheme.defaultTextStyle,
-              defaultTextStyle: CalendarTheme.defaultTextStyle,
-            ),
-            calendarBuilders: CalendarBuilders(
-              defaultBuilder: (context, day, focusedDay) {
-                final dayEvents = _getEventsForDay(day);
-                return Container(
-                  margin: const EdgeInsets.all(5),
-                  alignment: Alignment.center,
-                  child: TextButton(
-                    onPressed: widget.onPressed != null
-                        ? () => widget.onPressed!(day)
-                        : null,
-                    style: TextButton.styleFrom(
-                      padding: EdgeInsets.zero,
-                      shape: const CircleBorder(),
-                      backgroundColor: dayEvents.isNotEmpty
-                          ? MyColors.primaryMint
-                          : Colors.transparent,
-                    ),
-                    child: Text(
-                      '${day.day}',
-                      style: CalendarTheme.defaultTextStyle,
-                    ),
+          Stack(
+            children: [
+              if (widget.onPressed == null)
+                Container(
+                  width: 3,
+                  height: 20,
+                  color: MyColors.primaryMint,
+                  margin: const EdgeInsets.only(top: 3, left: 8),
+                ),
+              TableCalendar(
+                focusedDay: _focusedDay,
+                firstDay: _firstDay,
+                lastDay: _lastDay,
+                daysOfWeekHeight: 30,
+                rowHeight: 40,
+                headerStyle: HeaderStyle(
+                  titleCentered: isWidgetVisible,
+                  titleTextFormatter: (date, locale) => '${date.month}월',
+                  titleTextStyle: CalendarTheme.headerTextStyle,
+                  formatButtonVisible: false,
+                  headerPadding: EdgeInsets.fromLTRB(
+                      headerPadding * 2, 0, headerPadding, 0),
+                  headerMargin: EdgeInsets.only(bottom: headerPadding),
+                  leftChevronVisible: isWidgetVisible,
+                  rightChevronVisible: isWidgetVisible,
+                  leftChevronMargin: EdgeInsets.zero,
+                  rightChevronMargin: EdgeInsets.zero,
+                  leftChevronPadding: EdgeInsets.zero,
+                  rightChevronPadding: EdgeInsets.zero,
+                  leftChevronIcon: Icon(
+                    Icons.chevron_left,
+                    color: _isFirstMonth()
+                        ? MyColors.myDarkGrey
+                        : MyColors.primaryMint,
                   ),
-                );
-              },
-            ),
+                  rightChevronIcon: Icon(
+                    Icons.chevron_right,
+                    color: _isLastMonth()
+                        ? MyColors.myDarkGrey
+                        : MyColors.primaryMint,
+                  ),
+                ),
+                onPageChanged: (focusedDay) {
+                  setState(() {
+                    _focusedDay = focusedDay;
+                  });
+                },
+                daysOfWeekStyle: const DaysOfWeekStyle(
+                  weekdayStyle: CalendarTheme.daysOfWeekStyle,
+                  weekendStyle: CalendarTheme.daysOfWeekStyle,
+                ),
+                calendarStyle: CalendarStyle(
+                  outsideDaysVisible: false,
+                  cellMargin: const EdgeInsets.all(4),
+                  todayDecoration: CalendarTheme.today,
+                  selectedDecoration: CalendarTheme.selectedDays,
+                  weekendTextStyle: CalendarTheme.defaultTextStyle,
+                  defaultTextStyle: CalendarTheme.defaultTextStyle,
+                ),
+                calendarBuilders: CalendarBuilders(
+                  defaultBuilder: (context, day, focusedDay) {
+                    final dayEvents = _getEventsForDay(day);
+                    return Container(
+                      margin: const EdgeInsets.all(5),
+                      alignment: Alignment.center,
+                      child: TextButton(
+                        onPressed: widget.onPressed != null
+                            ? () => widget.onPressed!(day)
+                            : null,
+                        style: TextButton.styleFrom(
+                          padding: EdgeInsets.zero,
+                          shape: const CircleBorder(),
+                          backgroundColor: dayEvents.isNotEmpty
+                              ? MyColors.primaryMint
+                              : Colors.transparent,
+                        ),
+                        child: Text(
+                          '${day.day}',
+                          style: CalendarTheme.defaultTextStyle,
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ],
           )
         ],
       ),
