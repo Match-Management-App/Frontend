@@ -24,7 +24,7 @@ class CalendarWidget extends StatelessWidget {
       decoration: MyTheme.widgetDecoration,
       child: Column(
         children: [
-          AttendanceCalendar(
+          MYCalendar(
             events: events,
             onPressed: onPressed,
           ),
@@ -34,8 +34,8 @@ class CalendarWidget extends StatelessWidget {
   }
 }
 
-class AttendanceCalendar extends StatefulWidget {
-  const AttendanceCalendar({
+class MYCalendar extends StatefulWidget {
+  const MYCalendar({
     super.key,
     required this.events,
     this.onPressed,
@@ -45,10 +45,10 @@ class AttendanceCalendar extends StatefulWidget {
   final Function(DateTime)? onPressed;
 
   @override
-  _AttendanceCalendarState createState() => _AttendanceCalendarState();
+  State<MYCalendar> createState() => _MyCalendarState();
 }
 
-class _AttendanceCalendarState extends State<AttendanceCalendar> {
+class _MyCalendarState extends State<MYCalendar> {
   late DateTime _focusedDay;
   late DateTime _firstDay;
   late DateTime _lastDay;
