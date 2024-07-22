@@ -4,6 +4,11 @@ import 'package:flutter/widgets.dart';
 import 'package:wanna_play_soccer/Theme/my_colors.dart';
 
 class CalendarTheme {
+  static const TextStyle headerTextStyle = TextStyle(
+    color: MyColors.myWhite,
+    fontSize: 18,
+  );
+
   static const TextStyle daysOfWeekStyle = TextStyle(
     color: MyColors.myGrey,
     fontSize: 12,

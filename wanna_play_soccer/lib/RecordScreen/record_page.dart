@@ -6,7 +6,6 @@ import 'package:wanna_play_soccer/Component/Calendar/event.dart';
 import 'package:wanna_play_soccer/Component/subtitle.dart';
 import 'package:wanna_play_soccer/Component/Calendar/calendar_widget.dart';
 import 'package:wanna_play_soccer/RecordScreen/Widget/next_match_container.dart';
-import 'package:wanna_play_soccer/Theme/my_colors.dart';
 import 'package:wanna_play_soccer/Theme/my_theme.dart';
 
 class RecordPage extends StatefulWidget {
