@@ -6,6 +6,7 @@ import 'package:wanna_play_soccer/Component/Calendar/event.dart';
 import 'package:wanna_play_soccer/Component/subtitle.dart';
 import 'package:wanna_play_soccer/Component/Calendar/calendar_widget.dart';
 import 'package:wanna_play_soccer/RecordScreen/Widget/next_match_container.dart';
+import 'package:wanna_play_soccer/Theme/my_colors.dart';
 import 'package:wanna_play_soccer/Theme/my_theme.dart';
 
 class RecordPage extends StatefulWidget {
@@ -100,13 +101,13 @@ class DefaultSection extends StatelessWidget {
       padding: const EdgeInsets.only(top: 30),
       width: double.infinity,
       height: 320,
-      // child: const Text(
-      //   "댓글 기능을 사용할 수 없습니다.",
-      //   style: TextStyle(
-      //     fontSize: 14,
-      //     color: MyColors.myGrey,
-      //   ),
-      // ),
+      child: const Text(
+        "예정된 경기가 없습니다.",
+        style: TextStyle(
+          fontSize: 14,
+          color: MyColors.myGrey,
+        ),
+      ),
     );
   }
 }
