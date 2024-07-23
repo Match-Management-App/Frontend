@@ -8,8 +8,6 @@ import 'package:wanna_play_soccer/Component/Calendar/calendar_widget.dart';
 import 'package:wanna_play_soccer/RecordScreen/Widget/comments.dart';
 import 'package:wanna_play_soccer/RecordScreen/Widget/next_match_container.dart';
 import 'package:wanna_play_soccer/RecordScreen/Widget/vote.dart';
-import 'package:wanna_play_soccer/Theme/my_colors.dart';
-import 'package:wanna_play_soccer/Theme/my_theme.dart';
 
 class RecordPage extends StatefulWidget {
   const RecordPage({super.key});
