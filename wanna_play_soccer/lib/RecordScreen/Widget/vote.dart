@@ -13,6 +13,8 @@ class VoteWidget extends StatefulWidget {
 
 // TODO: 경기 투표 API 수정 여부 논의 필요!!!!
 // TODO: 여기 초기 화면 투표 위젯 띄울지 결과 위젯 띄울지 API로 받아야 할 듯
+// TODO: 투표 수정은 되야할 것 같긴 함..
+// TODO: 결과에서 내가 어디 투표했는지 확인 필요할 듯 -> 색으로?? 투표 했으면 민트색 아니면 회색
 class _VoteWidgetState extends State<VoteWidget> {
   bool _showResult = false;
 
@@ -21,6 +23,12 @@ class _VoteWidgetState extends State<VoteWidget> {
       setState(() {
         _showResult = true;
       });
+    });
+  }
+
+  void _onEdit() {
+    setState(() {
+      _showResult = false;
     });
   }
 
@@ -35,8 +43,9 @@ class _VoteWidgetState extends State<VoteWidget> {
       child: AnimatedSize(
         duration: const Duration(milliseconds: 300),
         curve: Curves.easeInOut,
-        child:
-            _showResult ? VoteResult() : VoteForNextMatch(onSubmit: _onSubmit),
+        child: _showResult
+            ? VoteResult(onEdit: _onEdit)
+            : VoteForNextMatch(onSubmit: _onSubmit),
       ),
     );
   }
@@ -144,7 +153,12 @@ class _VoteForNextMatchState extends State<VoteForNextMatch> {
 }
 
 class VoteResult extends StatelessWidget {
-  VoteResult({super.key});
+  VoteResult({
+    super.key,
+    required this.onEdit,
+  });
+
+  final VoidCallback onEdit;
 
   final Map<String, int> _voteResults = {
     "7월 30일": 10,
@@ -158,21 +172,56 @@ class VoteResult extends StatelessWidget {
         _voteResults.values.reduce((max, value) => max > value ? max : value);
 
     return Container(
-      padding: const EdgeInsets.all(40),
+      padding: const EdgeInsets.fromLTRB(30, 30, 30, 20),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: _voteResults.entries.map((entry) {
-          return Column(
-            children: [
-              VoteResultBar(
-                date: entry.key,
-                result: entry.value,
-                maxResult: maxResult,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          Container(
+            padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: _voteResults.entries.map((entry) {
+                return Column(
+                  children: [
+                    VoteResultBar(
+                      date: entry.key,
+                      result: entry.value,
+                      maxResult: maxResult,
+                    ),
+                    SizedBox(
+                        height: entry.key == _voteResults.keys.last ? 0 : 20),
+                  ],
+                );
+              }).toList(),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 10, right: 10),
+            child: ElevatedButton(
+              onPressed: () {
+                print('edit');
+                onEdit();
+              },
+              style: ButtonStyle(
+                minimumSize: MaterialStateProperty.all(Size.zero),
+                fixedSize: MaterialStateProperty.all(const Size(50, 25)),
+                padding: MaterialStateProperty.all(EdgeInsets.zero),
+                backgroundColor:
+                    MaterialStateProperty.all(MyColors.primaryMint),
+                shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0),
+                )),
               ),
-              SizedBox(height: entry.key == _voteResults.keys.last ? 0 : 15),
-            ],
-          );
-        }).toList(),
+              child: const Text(
+                "수정",
+                style: TextStyle(
+                  color: MyColors.myPointWhite,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
