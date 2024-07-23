@@ -5,6 +5,7 @@ import 'package:table_calendar/table_calendar.dart';
 import 'package:wanna_play_soccer/Component/Calendar/event.dart';
 import 'package:wanna_play_soccer/Component/subtitle.dart';
 import 'package:wanna_play_soccer/Component/Calendar/calendar_widget.dart';
+import 'package:wanna_play_soccer/RecordScreen/Widget/comment_of_no_match.dart';
 import 'package:wanna_play_soccer/RecordScreen/Widget/comments.dart';
 import 'package:wanna_play_soccer/RecordScreen/Widget/next_match_container.dart';
 import 'package:wanna_play_soccer/RecordScreen/Widget/vote.dart';
