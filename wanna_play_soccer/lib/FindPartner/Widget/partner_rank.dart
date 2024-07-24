@@ -42,54 +42,57 @@ class Ranking extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text(
-                "🥇",
-                style: TextStyle(
-                  fontSize: 50,
-                ),
-              ),
-              const SizedBox(height: 10),
-              Text(
-                first,
-                style: MyTheme.header3,
-              ),
-            ],
-          ),
-        ),
-        const VerticalDivider(
-          color: MyColors.myGrey,
-          thickness: 1,
-          indent: 20,
-          endIndent: 20,
-        ),
-        Expanded(
-          child: Padding(
-            padding: const EdgeInsets.all(20),
+    return SizedBox(
+      height: 150,
+      child: Row(
+        children: [
+          Expanded(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  "🥈 $second",
-                  style: MyTheme.defaultText,
-                  overflow: TextOverflow.ellipsis,
+                const Text(
+                  "🥇",
+                  style: TextStyle(
+                    fontSize: 50,
+                  ),
                 ),
+                const SizedBox(height: 10),
                 Text(
-                  "🥉 $third",
-                  style: MyTheme.defaultText,
-                  overflow: TextOverflow.ellipsis,
+                  first,
+                  style: MyTheme.header3,
                 ),
               ],
             ),
           ),
-        ),
-      ],
+          const VerticalDivider(
+            color: MyColors.myGrey,
+            thickness: 1,
+            indent: 20,
+            endIndent: 20,
+          ),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "🥈 $second",
+                    style: MyTheme.defaultText,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  Text(
+                    "🥉 $third",
+                    style: MyTheme.defaultText,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
