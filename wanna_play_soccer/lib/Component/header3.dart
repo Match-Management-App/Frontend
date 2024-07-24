@@ -15,13 +15,13 @@ class Header3 extends StatelessWidget {
       children: [
         Container(
           width: 3,
-          height: 30,
+          height: 20,
           margin: const EdgeInsets.only(right: 10),
           decoration: MyTheme.pipeDecoration,
         ),
         Text(
           text,
-          style: MyTheme.header3,
+          style: MyTheme.defaultText,
         ),
       ],
     );

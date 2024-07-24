@@ -92,8 +92,8 @@ class _MyCalendarState extends State<MYCalendar> {
                 Container(
                   width: 3,
                   height: 20,
-                  color: MyColors.primaryMint,
                   margin: const EdgeInsets.only(top: 3, left: 8),
+                  decoration: MyTheme.pipeDecoration,
                 ),
               TableCalendar(
                 focusedDay: _focusedDay,
