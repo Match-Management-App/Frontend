@@ -86,22 +86,36 @@ class HOF extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.all(5),
-          child: Row(
-            children: [
-              Container(
-                margin: const EdgeInsets.only(right: 10),
-                width: 3,
-                height: 20,
-                decoration: MyTheme.pipeDecoration,
-              ),
-              Text(
-                title,
-                style: MyTheme.defaultText,
-              ),
-            ],
-          ),
+          child: WidgetTitle(title: title),
         ),
         const Ranking(first: "first", second: "second", third: "third"),
+      ],
+    );
+  }
+}
+
+class WidgetTitle extends StatelessWidget {
+  const WidgetTitle({
+    super.key,
+    required this.title,
+  });
+
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Container(
+          margin: const EdgeInsets.only(right: 10),
+          width: 3,
+          height: 20,
+          decoration: MyTheme.pipeDecoration,
+        ),
+        Text(
+          title,
+          style: MyTheme.defaultText,
+        ),
       ],
     );
   }
