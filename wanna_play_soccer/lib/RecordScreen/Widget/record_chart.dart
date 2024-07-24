@@ -1,7 +1,6 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:wanna_play_soccer/Theme/my_colors.dart';
-import 'package:wanna_play_soccer/Theme/my_theme.dart';
 
 class RecordChart extends StatefulWidget {
   const RecordChart({super.key});
@@ -45,7 +44,7 @@ class _RecordChartState extends State<RecordChart> {
       children: [
         // 범례 추가
         Container(
-          margin: const EdgeInsets.only(bottom: 30),
+          margin: const EdgeInsets.only(left: 20, bottom: 30),
           child: const Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             mainAxisSize: MainAxisSize.min,

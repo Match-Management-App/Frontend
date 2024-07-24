@@ -25,7 +25,7 @@ class _RecordPageState extends State<RecordPage> {
             const Subtitle(icon: "📊", subtitle: "나의 기록"),
             Container(
               height: 350,
-              padding: const EdgeInsets.fromLTRB(15, 30, 40, 20),
+              padding: const EdgeInsets.fromLTRB(20, 30, 40, 20),
               decoration: MyTheme.widgetDecoration,
               child: const RecordChart(),
             ),
