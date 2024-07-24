@@ -3,7 +3,6 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:wanna_play_soccer/FindPartner/Widget/partner_rank.dart';
 import 'package:wanna_play_soccer/Theme/my_colors.dart';
 import 'package:wanna_play_soccer/Theme/my_theme.dart';
-import 'package:wanna_play_soccer/unused/attendance.dart';
 
 class HallOfFame extends StatefulWidget {
   const HallOfFame({super.key});
@@ -87,7 +86,20 @@ class HOF extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.all(5),
-          child: Header3(text: title),
+          child: Row(
+            children: [
+              Container(
+                margin: const EdgeInsets.only(right: 10),
+                width: 3,
+                height: 20,
+                decoration: MyTheme.pipeDecoration,
+              ),
+              Text(
+                title,
+                style: MyTheme.defaultText,
+              ),
+            ],
+          ),
         ),
         const Ranking(first: "first", second: "second", third: "third"),
       ],
