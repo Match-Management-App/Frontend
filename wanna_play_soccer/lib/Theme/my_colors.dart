@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 class MyColors {
   static const Color primaryMint = Color(0xff1EC1A4);
+  static const Color secondaryBlue = Color(0xff4b8bda);
+  static const Color tertiaryCyan = Color.fromARGB(255, 100, 207, 243);
 
   static const Color myBlack = Color(0xff20282D);
   static const Color gradientGrey = Color(0xff38464F);
