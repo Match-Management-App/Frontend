@@ -60,6 +60,7 @@ class Ranking extends StatelessWidget {
                 Text(
                   first,
                   style: MyTheme.header3,
+                  overflow: TextOverflow.ellipsis,
                 ),
               ],
             ),
