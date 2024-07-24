@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:wanna_play_soccer/HomeScreen/home_page.dart';
 import 'package:wanna_play_soccer/Component/AppBar/my_app_bar.dart';
-import 'package:wanna_play_soccer/RecordScreen/record_page.dart';
 import 'package:wanna_play_soccer/ScheduleScreen/schedule_page.dart';
+import 'package:wanna_play_soccer/RecordScreen/record_page.dart';
 import 'package:wanna_play_soccer/Theme/my_theme.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -49,8 +49,8 @@ class _HomeScreenState extends State<HomeScreen>
               controller: _tabController,
               children: const [
                 HomePage(),
-                RecordPage(),
                 SchedulePage(),
+                RecordPage(),
               ],
             ),
           ),
