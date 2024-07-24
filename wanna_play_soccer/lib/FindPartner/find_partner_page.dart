@@ -22,7 +22,13 @@ class FindPartnerPage extends StatelessWidget {
             Navigator.pop(context);
           },
         ),
-        backgroundColor: MyColors.myBlack,
+        // backgroundColor: MyColors.myBlack,
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: MyTheme.tabBarGradient,
+          ),
+        ),
+        backgroundColor: Colors.transparent,
         elevation: 0,
         scrolledUnderElevation: 0,
         centerTitle: false,
