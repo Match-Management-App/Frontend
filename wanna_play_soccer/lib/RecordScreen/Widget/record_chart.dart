@@ -1,31 +1,86 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:wanna_play_soccer/Theme/my_colors.dart';
+import 'package:wanna_play_soccer/Theme/my_theme.dart';
 
-class RecordChart extends StatelessWidget {
+class RecordChart extends StatefulWidget {
   const RecordChart({super.key});
 
   @override
+  State<RecordChart> createState() => _RecordChartState();
+}
+
+class _RecordChartState extends State<RecordChart> {
+  final List<Record> records = [
+    Record(date: "2024-07-08", goals: "3", assist: "5", defense: "0"),
+    Record(date: "2024-07-12", goals: "4", assist: "1", defense: "2"),
+    Record(date: "2024-07-21", goals: "3", assist: "3", defense: "0"),
+    Record(date: "2024-07-25", goals: "0", assist: "4", defense: "1"),
+  ];
+
+  late int maxValue;
+
+  @override
+  void initState() {
+    super.initState();
+    maxValue = findMaxValue();
+  }
+
+  int findMaxValue() {
+    int max = 0;
+    for (var record in records) {
+      max = [
+        max,
+        int.parse(record.goals),
+        int.parse(record.assist),
+        int.parse(record.defense)
+      ].reduce((curr, next) => curr > next ? curr : next);
+    }
+    return max + 1;
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return LineChart(
-      sampleData1,
-      duration: const Duration(milliseconds: 250),
+    return Column(
+      children: [
+        // 범례 추가
+        Container(
+          margin: const EdgeInsets.only(bottom: 30),
+          child: const Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Label(color: MyColors.primaryMint, text: '득점'),
+              SizedBox(width: 20),
+              Label(color: MyColors.secondaryBlue, text: '어시스트'),
+              SizedBox(width: 20),
+              Label(color: MyColors.tertiaryCyan, text: '수비'),
+            ],
+          ),
+        ),
+        Expanded(
+          child: LineChart(
+            sampleData,
+            duration: const Duration(milliseconds: 250),
+          ),
+        ),
+      ],
     );
   }
 
-  LineChartData get sampleData1 => LineChartData(
-        lineTouchData: lineTouchData1,
+  LineChartData get sampleData => LineChartData(
+        lineTouchData: lineTouchData,
         gridData: gridData,
-        titlesData: titlesData1,
+        titlesData: titlesData,
         borderData: borderData,
-        lineBarsData: lineBarsData1,
+        lineBarsData: lineBarsData,
         minX: 0,
         maxX: 3,
-        maxY: 5,
+        maxY: maxValue.toDouble(),
         minY: 0,
       );
 
-  LineTouchData get lineTouchData1 => LineTouchData(
+  LineTouchData get lineTouchData => LineTouchData(
         handleBuiltInTouches: true,
         touchTooltipData: LineTouchTooltipData(
           getTooltipColor: (touchedSpot) => MyColors.myBlack.withOpacity(0.7),
@@ -62,7 +117,7 @@ class RecordChart extends StatelessWidget {
         ),
       );
 
-  FlTitlesData get titlesData1 => FlTitlesData(
+  FlTitlesData get titlesData => FlTitlesData(
         bottomTitles: AxisTitles(
           sideTitles: bottomTitles,
         ),
@@ -77,10 +132,10 @@ class RecordChart extends StatelessWidget {
         ),
       );
 
-  List<LineChartBarData> get lineBarsData1 => [
-        lineChartBarData_1,
-        lineChartBarData_2,
-        lineChartBarData_3,
+  List<LineChartBarData> get lineBarsData => [
+        lineChartBarData(0, MyColors.primaryMint),
+        lineChartBarData(1, MyColors.secondaryBlue),
+        lineChartBarData(2, MyColors.tertiaryCyan),
       ];
 
   Widget leftTitleWidgets(double value, TitleMeta meta) {
@@ -88,38 +143,20 @@ class RecordChart extends StatelessWidget {
       fontSize: 14,
       color: MyColors.myGrey,
     );
-    String text;
-    switch (value.toInt()) {
-      case 0:
-        text = '0';
-        break;
-      case 1:
-        text = '1';
-        break;
-      case 2:
-        text = '2';
-        break;
-      case 3:
-        text = '3';
-        break;
-      case 4:
-        text = '4';
-        break;
-      case 5:
-        text = '5';
-        break;
-      default:
-        return Container();
+
+    if (value % 2 == 1 && value >= 0 && value <= maxValue) {
+      return Text(value.toInt().toString(),
+          style: style, textAlign: TextAlign.center);
     }
 
-    return Text(text, style: style, textAlign: TextAlign.center);
+    return Container();
   }
 
   SideTitles leftTitles() => SideTitles(
         getTitlesWidget: leftTitleWidgets,
         showTitles: true,
         interval: 1,
-        reservedSize: 40,
+        reservedSize: 30,
       );
 
   Widget bottomTitleWidgets(double value, TitleMeta meta) {
@@ -129,22 +166,12 @@ class RecordChart extends StatelessWidget {
     );
 
     Widget text;
-    switch (value.toInt()) {
-      case 0:
-        text = const Text('0708', style: style);
-        break;
-      case 1:
-        text = const Text('0712', style: style);
-        break;
-      case 2:
-        text = const Text('0721', style: style);
-        break;
-      case 3:
-        text = const Text('0725', style: style);
-        break;
-      default:
-        text = const Text('');
-        break;
+    if (value.toInt() >= 0 && value.toInt() < records.length) {
+      String date = records[value.toInt()].date;
+      String formattedDate = "${date.substring(5, 7)}/${date.substring(8, 10)}";
+      text = Text(formattedDate, style: style);
+    } else {
+      text = const Text('');
     }
 
     return SideTitleWidget(
@@ -156,7 +183,7 @@ class RecordChart extends StatelessWidget {
 
   SideTitles get bottomTitles => SideTitles(
         showTitles: true,
-        reservedSize: 32,
+        reservedSize: 30,
         interval: 1,
         getTitlesWidget: bottomTitleWidgets,
       );
@@ -173,51 +200,77 @@ class RecordChart extends StatelessWidget {
         ),
       );
 
-  LineChartBarData get lineChartBarData_1 => LineChartBarData(
+  LineChartBarData lineChartBarData(int index, Color color) => LineChartBarData(
         isCurved: true,
-        color: MyColors.primaryMint,
+        color: color,
         barWidth: 5,
         isStrokeCapRound: true,
-        dotData: const FlDotData(show: false),
-        belowBarData: BarAreaData(show: false),
-        spots: const [
-          FlSpot(0, 3),
-          FlSpot(1, 1),
-          FlSpot(2, 3),
-          FlSpot(3, 2),
-        ],
+        dotData: const FlDotData(show: true),
+        spots: getSpots(index),
       );
 
-  LineChartBarData get lineChartBarData_2 => LineChartBarData(
-        isCurved: true,
-        color: MyColors.secondaryBlue,
-        barWidth: 5,
-        isStrokeCapRound: true,
-        dotData: const FlDotData(show: false),
-        belowBarData: BarAreaData(
-          show: false,
-          color: MyColors.secondaryBlue.withOpacity(0),
+  List<FlSpot> getSpots(int index) {
+    return records.asMap().entries.map((entry) {
+      int i = entry.key;
+      Record record = entry.value;
+      double value;
+      switch (index) {
+        case 0:
+          value = double.parse(record.goals);
+          break;
+        case 1:
+          value = double.parse(record.assist);
+          break;
+        case 2:
+          value = double.parse(record.defense);
+          break;
+        default:
+          value = 0;
+      }
+      return FlSpot(i.toDouble(), value);
+    }).toList();
+  }
+}
+
+class Record {
+  final String date;
+  final String goals;
+  final String assist;
+  final String defense;
+
+  Record({
+    required this.date,
+    required this.goals,
+    required this.assist,
+    required this.defense,
+  });
+}
+
+class Label extends StatelessWidget {
+  const Label({
+    super.key,
+    required this.color,
+    required this.text,
+  });
+
+  final Color color;
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Container(
+          width: 10,
+          height: 10,
+          color: color,
         ),
-        spots: const [
-          FlSpot(0, 1),
-          FlSpot(1, 2),
-          FlSpot(2, 0),
-          FlSpot(3, 1),
-        ],
-      );
-
-  LineChartBarData get lineChartBarData_3 => LineChartBarData(
-        isCurved: true,
-        color: MyColors.tertiaryCyan,
-        barWidth: 5,
-        isStrokeCapRound: true,
-        dotData: const FlDotData(show: false),
-        belowBarData: BarAreaData(show: false),
-        spots: const [
-          FlSpot(0, 0),
-          FlSpot(1, 4),
-          FlSpot(2, 3),
-          FlSpot(3, 4),
-        ],
-      );
+        const SizedBox(width: 5),
+        Text(
+          text,
+          style: const TextStyle(color: MyColors.myGrey, fontSize: 14),
+        ),
+      ],
+    );
+  }
 }
