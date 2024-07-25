@@ -1,5 +1,5 @@
 import "package:flutter/material.dart";
-import "package:wanna_play_soccer/FindPartner/find_partner_page.dart";
+import "package:wanna_play_soccer/Pages/FindPartner/find_partner_page.dart";
 import "package:wanna_play_soccer/Theme/my_colors.dart";
 import "package:wanna_play_soccer/Theme/my_theme.dart";
 

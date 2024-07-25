@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:wanna_play_soccer/Component/Calendar/event.dart';
 import 'package:wanna_play_soccer/Component/subtitle.dart';
-import 'package:wanna_play_soccer/HomeScreen/Widgets/find_partner_button.dart';
+import 'package:wanna_play_soccer/Pages/HomeScreen/Widgets/find_partner_button.dart';
 import 'package:wanna_play_soccer/Component/Calendar/calendar_widget.dart';
-import 'package:wanna_play_soccer/HomeScreen/Widgets/next_match.dart';
+import 'package:wanna_play_soccer/Pages/HomeScreen/Widgets/next_match.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

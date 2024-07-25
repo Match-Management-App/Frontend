@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wanna_play_soccer/Component/subtitle.dart';
-import 'package:wanna_play_soccer/RecordScreen/Widget/hall_of_fame.dart';
-import 'package:wanna_play_soccer/RecordScreen/Widget/record_chart.dart';
+import 'package:wanna_play_soccer/Pages/RecordScreen/Widget/hall_of_fame.dart';
+import 'package:wanna_play_soccer/Pages/RecordScreen/Widget/record_chart.dart';
 import 'package:wanna_play_soccer/Theme/my_theme.dart';
 
 class RecordPage extends StatefulWidget {

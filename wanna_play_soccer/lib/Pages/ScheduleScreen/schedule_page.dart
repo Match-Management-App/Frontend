@@ -5,10 +5,10 @@ import 'package:table_calendar/table_calendar.dart';
 import 'package:wanna_play_soccer/Component/Calendar/event.dart';
 import 'package:wanna_play_soccer/Component/subtitle.dart';
 import 'package:wanna_play_soccer/Component/Calendar/calendar_widget.dart';
-import 'package:wanna_play_soccer/ScheduleScreen/Widget/comment_of_no_match.dart';
-import 'package:wanna_play_soccer/ScheduleScreen/Widget/comments.dart';
-import 'package:wanna_play_soccer/ScheduleScreen/Widget/next_match_container.dart';
-import 'package:wanna_play_soccer/ScheduleScreen/Widget/vote.dart';
+import 'package:wanna_play_soccer/Pages/ScheduleScreen/Widget/comment_of_no_match.dart';
+import 'package:wanna_play_soccer/Pages/ScheduleScreen/Widget/comments.dart';
+import 'package:wanna_play_soccer/Pages/ScheduleScreen/Widget/next_match_container.dart';
+import 'package:wanna_play_soccer/Pages/ScheduleScreen/Widget/vote.dart';
 
 class SchedulePage extends StatefulWidget {
   const SchedulePage({super.key});

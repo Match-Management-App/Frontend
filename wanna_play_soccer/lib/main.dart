@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wanna_play_soccer/HomeScreen/main_screen.dart';
+import 'package:wanna_play_soccer/Pages/HomeScreen/main_screen.dart';
 import 'package:wanna_play_soccer/Theme/my_colors.dart';
 
 void main() {

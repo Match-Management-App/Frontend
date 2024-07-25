@@ -82,7 +82,7 @@ class _RecordChartState extends State<RecordChart> {
   LineTouchData get lineTouchData => LineTouchData(
         handleBuiltInTouches: true,
         touchTooltipData: LineTouchTooltipData(
-          getTooltipColor: (touchedSpot) => MyColors.myBlack.withOpacity(0.7),
+          getTooltipColor: (touchedSpot) => MyColors.myBlack.withOpacity(0.8),
           tooltipRoundedRadius: 8,
           fitInsideHorizontally: true,
           fitInsideVertically: true,
@@ -90,21 +90,26 @@ class _RecordChartState extends State<RecordChart> {
             return touchedBarSpots.map((barSpot) {
               final flSpot = barSpot;
               Color color;
+              String text = '';
               switch (barSpot.barIndex) {
                 case 0:
                   color = MyColors.primaryMint;
+                  text = '득점';
                   break;
                 case 1:
                   color = MyColors.secondaryBlue;
+                  text = '어시스트';
                   break;
                 case 2:
                   color = MyColors.tertiaryCyan;
+                  text = '수비';
                   break;
                 default:
                   color = MyColors.myBlack;
               }
               return LineTooltipItem(
-                '${flSpot.y.round()}',
+                textAlign: TextAlign.start,
+                '$text: ${flSpot.y.round()}',
                 TextStyle(
                   color: color,
                   fontWeight: FontWeight.bold,
