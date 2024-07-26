@@ -28,10 +28,6 @@ class _HomePageState extends State<HomePage> {
       DateTime(2024, 7, 12): [Event(title: "Event on July 12")],
     });
 
-  List<Event> _getEventsForDay(DateTime day) {
-    return _events[day] ?? [];
-  }
-
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;

@@ -130,12 +130,11 @@ class CommentInput extends StatelessWidget {
             margin: const EdgeInsets.only(left: 5),
             child: ElevatedButton(
               style: ButtonStyle(
-                backgroundColor:
-                    MaterialStateProperty.all(MyColors.primaryMint),
-                shape: MaterialStateProperty.all(
+                backgroundColor: WidgetStateProperty.all(MyColors.primaryMint),
+                shape: WidgetStateProperty.all(
                   const CircleBorder(),
                 ),
-                padding: MaterialStateProperty.all(const EdgeInsets.all(5)),
+                padding: WidgetStateProperty.all(const EdgeInsets.all(5)),
               ),
               onPressed: () {
                 _onSubmit();

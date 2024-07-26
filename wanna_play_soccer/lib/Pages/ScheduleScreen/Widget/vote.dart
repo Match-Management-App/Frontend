@@ -11,9 +11,6 @@ class VoteWidget extends StatefulWidget {
   State<VoteWidget> createState() => _VoteWidgetState();
 }
 
-// TODO: 경기 투표 API 수정 여부 논의 필요!!!!
-// TODO: 여기 초기 화면 투표 위젯 띄울지 결과 위젯 띄울지 API로 받아야 할 듯
-// TODO: 투표 수정은 되야할 것 같긴 함..
 // TODO: 결과에서 내가 어디 투표했는지 확인 필요할 듯 -> 색으로?? 투표 했으면 민트색 아니면 회색
 class _VoteWidgetState extends State<VoteWidget> {
   bool _showResult = false;
@@ -97,9 +94,9 @@ class _VoteForNextMatchState extends State<VoteForNextMatch> {
                         value: _checkedStates[index],
                         activeColor: MyColors.primaryMint,
                         checkColor: MyColors.myDarkGrey,
-                        side: MaterialStateBorderSide.resolveWith(
-                          (Set<MaterialState> states) {
-                            if (states.contains(MaterialState.selected)) {
+                        side: WidgetStateBorderSide.resolveWith(
+                          (Set<WidgetState> states) {
+                            if (states.contains(WidgetState.selected)) {
                               return const BorderSide(
                                   color: MyColors.primaryMint);
                             }
@@ -128,12 +125,11 @@ class _VoteForNextMatchState extends State<VoteForNextMatch> {
                 widget.onSubmit();
               },
               style: ButtonStyle(
-                minimumSize: MaterialStateProperty.all(Size.zero),
-                fixedSize: MaterialStateProperty.all(const Size(50, 25)),
-                padding: MaterialStateProperty.all(EdgeInsets.zero),
-                backgroundColor:
-                    MaterialStateProperty.all(MyColors.primaryMint),
-                shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                minimumSize: WidgetStateProperty.all(Size.zero),
+                fixedSize: WidgetStateProperty.all(const Size(50, 25)),
+                padding: WidgetStateProperty.all(EdgeInsets.zero),
+                backgroundColor: WidgetStateProperty.all(MyColors.primaryMint),
+                shape: WidgetStateProperty.all(RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20.0),
                 )),
               ),
@@ -203,12 +199,11 @@ class VoteResult extends StatelessWidget {
                 onEdit();
               },
               style: ButtonStyle(
-                minimumSize: MaterialStateProperty.all(Size.zero),
-                fixedSize: MaterialStateProperty.all(const Size(50, 25)),
-                padding: MaterialStateProperty.all(EdgeInsets.zero),
-                backgroundColor:
-                    MaterialStateProperty.all(MyColors.primaryMint),
-                shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                minimumSize: WidgetStateProperty.all(Size.zero),
+                fixedSize: WidgetStateProperty.all(const Size(50, 25)),
+                padding: WidgetStateProperty.all(EdgeInsets.zero),
+                backgroundColor: WidgetStateProperty.all(MyColors.primaryMint),
+                shape: WidgetStateProperty.all(RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20.0),
                 )),
               ),
