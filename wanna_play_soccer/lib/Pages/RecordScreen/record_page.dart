@@ -23,6 +23,9 @@ class _RecordPageState extends State<RecordPage> {
         child: Column(
           children: [
             const Subtitle(icon: "📊", subtitle: "나의 기록"),
+            // Container도 RecordChart 안에 넣고 싶었는데
+            // RecordChart의 Expanded랑 SingleChildScrollView랑 충돌해서
+            // RecordChart에 Container를 넣으면 에러 발생,,
             Container(
               height: 350,
               padding: const EdgeInsets.fromLTRB(20, 30, 40, 20),

@@ -30,28 +30,31 @@ class _HomeScreenState extends State<HomeScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        decoration: MyTheme.backgroundColor,
-        child: DefaultTabController(
-          length: 3,
-          child: NestedScrollView(
-            headerSliverBuilder:
-                (BuildContext context, bool innerBoxIsScrolled) {
-              return [
-                MyAppBar(
-                  tabController: _tabController,
-                  innerBoxIsScrolled: innerBoxIsScrolled,
-                ),
-              ];
-            },
-            body: TabBarView(
-              controller: _tabController,
-              children: const [
-                HomePage(),
-                SchedulePage(),
-                RecordPage(),
-              ],
+    return GestureDetector(
+      onTap: FocusScope.of(context).unfocus,
+      child: Scaffold(
+        body: Container(
+          decoration: MyTheme.backgroundColor,
+          child: DefaultTabController(
+            length: 3,
+            child: NestedScrollView(
+              headerSliverBuilder:
+                  (BuildContext context, bool innerBoxIsScrolled) {
+                return [
+                  MyAppBar(
+                    tabController: _tabController,
+                    innerBoxIsScrolled: innerBoxIsScrolled,
+                  ),
+                ];
+              },
+              body: TabBarView(
+                controller: _tabController,
+                children: const [
+                  HomePage(),
+                  SchedulePage(),
+                  RecordPage(),
+                ],
+              ),
             ),
           ),
         ),

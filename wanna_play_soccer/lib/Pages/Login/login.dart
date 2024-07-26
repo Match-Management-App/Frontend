@@ -14,11 +14,9 @@ class _LoginState extends State<Login> {
   bool _imageLoaded = false;
 
   @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _loadImage();
-    });
+  didChangeDependencies() {
+    super.didChangeDependencies();
+    _loadImage();
   }
 
   Future<void> _loadImage() async {
