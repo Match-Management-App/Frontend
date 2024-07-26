@@ -43,6 +43,7 @@ dependencies:
   json_annotation: ^4.9.0
   retrofit_generator: ^8.1.2
   kakao_flutter_sdk: ^1.9.2
+  flutter_native_splash: ^2.4.1
 
 dev_dependencies:
   flutter_test:
