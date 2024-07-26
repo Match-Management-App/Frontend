@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wanna_play_soccer/Pages/HomeScreen/main_screen.dart';
+import 'package:wanna_play_soccer/Pages/Login/login.dart';
 import 'package:wanna_play_soccer/Theme/my_colors.dart';
 import 'package:wanna_play_soccer/Utils/retrofit_dio_json.dart';
 
@@ -27,7 +28,8 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: const HomeScreen(),
+      // home: const HomeScreen(),
+      home: const Login(),
       // home: RetrofitDioJson(),
     );
   }
