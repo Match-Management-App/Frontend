@@ -33,6 +33,7 @@ class _HomeScreenState extends State<HomeScreen>
     return GestureDetector(
       onTap: FocusScope.of(context).unfocus,
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         body: Container(
           decoration: MyTheme.backgroundColor,
           child: DefaultTabController(
