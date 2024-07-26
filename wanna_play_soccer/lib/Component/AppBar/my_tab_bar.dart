@@ -29,6 +29,9 @@ class _MyTabBarState extends State<MyTabBar> {
       child: SizedBox(
         width: MediaQuery.of(context).size.width * 0.6,
         child: TabBar(
+          onTap: (_) {
+            FocusScope.of(context).unfocus();
+          },
           overlayColor: WidgetStateProperty.all(Colors.transparent),
           controller: widget.tabController,
           labelColor: MyColors.myPointWhite,
