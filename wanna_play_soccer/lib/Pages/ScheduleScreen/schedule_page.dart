@@ -1,5 +1,4 @@
 import 'dart:collection';
-import 'dart:html';
 
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -97,15 +96,19 @@ class VoteResult extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Row(
-          children: [
-            Container(
-              width: 3,
-              height: 5,
-              decoration: MyTheme.pipeDecoration,
-            ),
-            const Text('투표 결과', style: MyTheme.header3),
-          ],
+        Padding(
+          padding: const EdgeInsets.fromLTRB(20, 20, 10, 10),
+          child: Row(
+            children: [
+              Container(
+                width: 3,
+                height: 20,
+                margin: const EdgeInsets.only(right: 10),
+                decoration: MyTheme.pipeDecoration,
+              ),
+              const Text('투표 결과', style: MyTheme.header3),
+            ],
+          ),
         ),
         Container(
           height: 300,
