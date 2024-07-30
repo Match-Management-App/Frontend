@@ -29,6 +29,7 @@ class _RecordPageState extends State<RecordPage> {
             Container(
               height: 350,
               padding: const EdgeInsets.fromLTRB(20, 30, 40, 20),
+              margin: const EdgeInsets.only(bottom: 20),
               decoration: MyTheme.widgetDecoration,
               child: const RecordChart(),
             ),

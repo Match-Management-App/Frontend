@@ -38,7 +38,7 @@ class _VoteWidgetState extends State<VoteWidget> {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 300),
       curve: Curves.easeInOut,
-      margin: const EdgeInsets.only(bottom: 20),
+      // margin: const EdgeInsets.only(bottom: 10),
       width: double.infinity,
       decoration: MyTheme.widgetDecoration,
       child: AnimatedSize(

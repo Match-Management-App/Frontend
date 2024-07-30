@@ -1,4 +1,5 @@
 import 'dart:collection';
+import 'dart:html';
 
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -72,6 +73,7 @@ class _SchedulePageState extends State<SchedulePage> {
             const Subtitle(icon: "🗳️", subtitle: "경기일 투표"),
             VoteWidget(onTap: onTap),
             if (isVoteResultOpened) const VoteResult(),
+            const SizedBox(height: 20),
             const Subtitle(icon: "📆", subtitle: "경기 일정"),
             CalendarWidget(
               events: _events,
@@ -93,9 +95,24 @@ class VoteResult extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 300,
-      decoration: MyTheme.widgetDecoration,
+    return Column(
+      children: [
+        Row(
+          children: [
+            Container(
+              width: 3,
+              height: 5,
+              decoration: MyTheme.pipeDecoration,
+            ),
+            const Text('투표 결과', style: MyTheme.header3),
+          ],
+        ),
+        Container(
+          height: 300,
+          margin: const EdgeInsets.only(bottom: 20),
+          decoration: MyTheme.widgetDecoration,
+        ),
+      ],
     );
   }
 }
