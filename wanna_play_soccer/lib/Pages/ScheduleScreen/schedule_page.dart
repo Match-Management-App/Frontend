@@ -29,7 +29,9 @@ class _SchedulePageState extends State<SchedulePage> {
   // * 경기일 투표 > 인원 클릭 시 투표 결과 보여주는 함수
   void onTap(String date) {
     setState(() {
-      isVoteResultOpened = !isVoteResultOpened;
+      if (resultDate == date) {
+        isVoteResultOpened = !isVoteResultOpened;
+      }
       resultDate = date;
       print(date);
     });
@@ -123,7 +125,6 @@ class VoteResult extends StatelessWidget {
         ),
         Container(
           // height: 300,
-          margin: const EdgeInsets.only(bottom: 20),
           padding: const EdgeInsets.all(30),
           decoration: MyTheme.widgetDecoration,
           child: Column(
