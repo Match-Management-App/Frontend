@@ -19,6 +19,12 @@ class MyTheme {
     boxShadow: [MyTheme.defaultShadow],
   );
 
+  static BoxDecoration voteResultWidget = BoxDecoration(
+    color: MyColors.gradientGrey,
+    borderRadius: BorderRadius.circular(20),
+    boxShadow: [MyTheme.defaultShadow],
+  );
+
   static BoxShadow defaultShadow = BoxShadow(
     color: MyColors.myBlack.withOpacity(0.7),
     blurRadius: 7,

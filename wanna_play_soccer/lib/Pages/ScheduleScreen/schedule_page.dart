@@ -9,6 +9,7 @@ import 'package:wanna_play_soccer/Pages/ScheduleScreen/Widget/comment_of_no_matc
 import 'package:wanna_play_soccer/Pages/ScheduleScreen/Widget/comments.dart';
 import 'package:wanna_play_soccer/Pages/ScheduleScreen/Widget/next_match_container.dart';
 import 'package:wanna_play_soccer/Pages/ScheduleScreen/Widget/vote.dart';
+import 'package:wanna_play_soccer/Theme/my_theme.dart';
 
 class SchedulePage extends StatefulWidget {
   const SchedulePage({super.key});
@@ -20,6 +21,16 @@ class SchedulePage extends StatefulWidget {
 class _SchedulePageState extends State<SchedulePage> {
   DateTime? selectedDate;
   bool isNonMatchDayClicked = false;
+  bool isVoteResultOpened = false;
+  String resultDate = '';
+
+  void onTap(String date) {
+    setState(() {
+      isVoteResultOpened = !isVoteResultOpened;
+      resultDate = date;
+      print(date);
+    });
+  }
 
   void onPressed(DateTime date) {
     setState(() {
@@ -59,7 +70,8 @@ class _SchedulePageState extends State<SchedulePage> {
           children: [
             const NextMatchContainer(),
             const Subtitle(icon: "🗳️", subtitle: "경기일 투표"),
-            const VoteWidget(),
+            VoteWidget(onTap: onTap),
+            if (isVoteResultOpened) const VoteResult(),
             const Subtitle(icon: "📆", subtitle: "경기 일정"),
             CalendarWidget(
               events: _events,
@@ -72,6 +84,18 @@ class _SchedulePageState extends State<SchedulePage> {
           ],
         ),
       ),
+    );
+  }
+}
+
+class VoteResult extends StatelessWidget {
+  const VoteResult({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 300,
+      decoration: MyTheme.widgetDecoration,
     );
   }
 }

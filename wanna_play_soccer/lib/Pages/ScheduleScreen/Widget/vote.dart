@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:wanna_play_soccer/Theme/my_colors.dart';
 import 'package:wanna_play_soccer/Theme/my_theme.dart';
 
 class VoteWidget extends StatefulWidget {
   const VoteWidget({
     super.key,
+    required this.onTap,
   });
+
+  final Function(String) onTap;
 
   @override
   State<VoteWidget> createState() => _VoteWidgetState();
@@ -41,7 +45,7 @@ class _VoteWidgetState extends State<VoteWidget> {
         duration: const Duration(milliseconds: 300),
         curve: Curves.easeInOut,
         child: _showResult
-            ? VoteResult(onEdit: _onEdit)
+            ? VoteResult(onEdit: _onEdit, onTap: widget.onTap)
             : VoteForNextMatch(onSubmit: _onSubmit),
       ),
     );
@@ -152,9 +156,11 @@ class VoteResult extends StatelessWidget {
   VoteResult({
     super.key,
     required this.onEdit,
+    required this.onTap,
   });
 
   final VoidCallback onEdit;
+  final Function(String) onTap;
 
   final Map<String, int> _voteResults = {
     "7월 30일": 10,
@@ -183,6 +189,7 @@ class VoteResult extends StatelessWidget {
                       date: entry.key,
                       result: entry.value,
                       maxResult: maxResult,
+                      onTap: onTap,
                     ),
                     SizedBox(
                         height: entry.key == _voteResults.keys.last ? 0 : 20),
@@ -228,11 +235,13 @@ class VoteResultBar extends StatelessWidget {
     required this.date,
     required this.result,
     required this.maxResult,
+    required this.onTap,
   });
 
   final String date;
   final int result;
   final int maxResult;
+  final Function(String) onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -259,12 +268,26 @@ class VoteResultBar extends StatelessWidget {
           ),
         ),
         const SizedBox(width: 10),
-        SizedBox(
-          width: 40,
-          child: Text(
-            '$result명',
-            style: const TextStyle(color: MyColors.myWhite, fontSize: 14),
-            textAlign: TextAlign.right,
+        GestureDetector(
+          onTap: () {
+            onTap(date);
+          },
+          child: Row(
+            children: [
+              SizedBox(
+                width: 40,
+                child: Text(
+                  '$result명',
+                  style: const TextStyle(color: MyColors.myWhite, fontSize: 14),
+                  textAlign: TextAlign.right,
+                ),
+              ),
+              const Icon(
+                Icons.chevron_right_rounded,
+                color: MyColors.myWhite,
+                size: 14,
+              ),
+            ],
           ),
         ),
       ],
