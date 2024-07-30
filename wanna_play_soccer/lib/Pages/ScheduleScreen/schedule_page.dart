@@ -1,4 +1,6 @@
+import 'dart:async';
 import 'dart:collection';
+import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -24,6 +26,7 @@ class _SchedulePageState extends State<SchedulePage> {
   bool isVoteResultOpened = false;
   String resultDate = '';
 
+  // * 경기일 투표 > 인원 클릭 시 투표 결과 보여주는 함수
   void onTap(String date) {
     setState(() {
       isVoteResultOpened = !isVoteResultOpened;
@@ -32,6 +35,7 @@ class _SchedulePageState extends State<SchedulePage> {
     });
   }
 
+  // * 경기 일정 > 날짜 클릭 시 댓글 보여주는 함수
   void onPressed(DateTime date) {
     setState(() {
       if (_events[date]?.isNotEmpty ?? false) {
@@ -58,6 +62,8 @@ class _SchedulePageState extends State<SchedulePage> {
       DateTime(2024, 8, 12): [Event(title: "Event on July 12")],
     });
 
+  final _voteResults = ["user1", "user2", "user3"];
+
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
@@ -71,7 +77,7 @@ class _SchedulePageState extends State<SchedulePage> {
             const NextMatchContainer(),
             const Subtitle(icon: "🗳️", subtitle: "경기일 투표"),
             VoteWidget(onTap: onTap),
-            if (isVoteResultOpened) const VoteResult(),
+            if (isVoteResultOpened) VoteResult(res: _voteResults),
             const SizedBox(height: 20),
             const Subtitle(icon: "📆", subtitle: "경기 일정"),
             CalendarWidget(
@@ -90,7 +96,12 @@ class _SchedulePageState extends State<SchedulePage> {
 }
 
 class VoteResult extends StatelessWidget {
-  const VoteResult({super.key});
+  const VoteResult({
+    super.key,
+    required this.res,
+  });
+
+  final List<String> res;
 
   @override
   Widget build(BuildContext context) {
@@ -111,9 +122,36 @@ class VoteResult extends StatelessWidget {
           ),
         ),
         Container(
-          height: 300,
+          // height: 300,
           margin: const EdgeInsets.only(bottom: 20),
+          padding: const EdgeInsets.all(30),
           decoration: MyTheme.widgetDecoration,
+          child: Column(
+            children: List.generate((res.length / 2).ceil(), (index) {
+              return Padding(
+                padding: const EdgeInsets.all(10),
+                child: Row(
+                  children: [
+                    if (index * 2 < res.length)
+                      Expanded(
+                        child: Text(
+                          res[index * 2],
+                          style: MyTheme.voteResult,
+                        ),
+                      ),
+                    const SizedBox(width: 20),
+                    if (index * 2 + 1 < res.length)
+                      Expanded(
+                        child: Text(
+                          res[index * 2 + 1],
+                          style: MyTheme.voteResult,
+                        ),
+                      ),
+                  ],
+                ),
+              );
+            }),
+          ),
         ),
       ],
     );

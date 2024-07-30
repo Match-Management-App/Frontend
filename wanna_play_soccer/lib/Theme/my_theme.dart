@@ -68,4 +68,9 @@ class MyTheme {
     color: MyColors.myWhite,
     fontSize: 20,
   );
+
+  static const TextStyle voteResult = TextStyle(
+    color: MyColors.myWhite,
+    fontSize: 18,
+  );
 }
