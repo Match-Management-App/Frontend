@@ -79,7 +79,11 @@ class _SchedulePageState extends State<SchedulePage> {
             const NextMatchContainer(),
             const Subtitle(icon: "🗳️", subtitle: "경기일 투표"),
             VoteWidget(onTap: onTap),
-            if (isVoteResultOpened) VoteResult(res: _voteResults),
+            if (isVoteResultOpened)
+              VoteResult(
+                res: _voteResults,
+                date: resultDate,
+              ),
             const SizedBox(height: 20),
             const Subtitle(icon: "📆", subtitle: "경기 일정"),
             CalendarWidget(
@@ -101,9 +105,11 @@ class VoteResult extends StatelessWidget {
   const VoteResult({
     super.key,
     required this.res,
+    required this.date,
   });
 
   final List<String> res;
+  final String date;
 
   @override
   Widget build(BuildContext context) {
@@ -119,7 +125,7 @@ class VoteResult extends StatelessWidget {
                 margin: const EdgeInsets.only(right: 10),
                 decoration: MyTheme.pipeDecoration,
               ),
-              const Text('투표 결과', style: MyTheme.header3),
+              Text('$date 참여자', style: MyTheme.header3),
             ],
           ),
         ),
