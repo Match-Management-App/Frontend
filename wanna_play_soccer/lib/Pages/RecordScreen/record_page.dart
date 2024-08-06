@@ -3,7 +3,6 @@ import 'package:wanna_play_soccer/Component/subtitle.dart';
 import 'package:wanna_play_soccer/Pages/RecordScreen/Widget/hall_of_fame.dart';
 import 'package:wanna_play_soccer/Pages/RecordScreen/Widget/record_chart.dart';
 import 'package:wanna_play_soccer/Theme/my_theme.dart';
-import 'package:wanna_play_soccer/env.dart';
 
 class RecordPage extends StatefulWidget {
   const RecordPage({super.key});
@@ -23,7 +22,7 @@ class _RecordPageState extends State<RecordPage> {
             top: screenHeight * 0.14, bottom: 40, left: 30, right: 30),
         child: Column(
           children: [
-            Subtitle(icon: "📊", subtitle: Env.baseUrl),
+            const Subtitle(icon: "📊", subtitle: "나의 기록"),
             // Container도 RecordChart 안에 넣고 싶었는데
             // RecordChart의 Expanded랑 SingleChildScrollView랑 충돌해서
             // RecordChart에 Container를 넣으면 에러 발생,,
