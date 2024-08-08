@@ -7,7 +7,7 @@ part 'stat.g.dart';
 class Stat {
   final int goals;
   final int assist;
-  final int defense;
+  final int defence;
   @JsonKey(
       name: 'matchDate',
       fromJson: MyDateUtils.dateTimeFromString,
@@ -17,7 +17,7 @@ class Stat {
   Stat({
     required this.goals,
     required this.assist,
-    required this.defense,
+    required this.defence,
     required this.matchDate,
   });
 
@@ -34,13 +34,13 @@ class RecentRecord {
   final DateTime date;
   final int goals;
   final int assist;
-  final int defense;
+  final int defence;
 
   RecentRecord({
     required this.date,
     required this.goals,
     required this.assist,
-    required this.defense,
+    required this.defence,
   });
 
   factory RecentRecord.fromJson(Map<String, dynamic> json) =>

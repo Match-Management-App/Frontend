@@ -11,10 +11,10 @@ class RecordChart extends StatefulWidget {
 
 class _RecordChartState extends State<RecordChart> {
   final List<Record> records = [
-    Record(date: "2024-07-08", goals: "3", assist: "5", defense: "0"),
-    Record(date: "2024-07-12", goals: "4", assist: "1", defense: "2"),
-    Record(date: "2024-07-21", goals: "3", assist: "3", defense: "0"),
-    Record(date: "2024-07-25", goals: "0", assist: "4", defense: "1"),
+    Record(date: "2024-07-08", goals: "3", assist: "5", defence: "0"),
+    Record(date: "2024-07-12", goals: "4", assist: "1", defence: "2"),
+    Record(date: "2024-07-21", goals: "3", assist: "3", defence: "0"),
+    Record(date: "2024-07-25", goals: "0", assist: "4", defence: "1"),
   ];
 
   late int maxValue;
@@ -32,7 +32,7 @@ class _RecordChartState extends State<RecordChart> {
         max,
         int.parse(record.goals),
         int.parse(record.assist),
-        int.parse(record.defense)
+        int.parse(record.defence)
       ].reduce((curr, next) => curr > next ? curr : next);
     }
     return max + 1;
@@ -226,7 +226,7 @@ class _RecordChartState extends State<RecordChart> {
           value = double.parse(record.assist);
           break;
         case 2:
-          value = double.parse(record.defense);
+          value = double.parse(record.defence);
           break;
         default:
           value = 0;
@@ -240,13 +240,13 @@ class Record {
   final String date;
   final String goals;
   final String assist;
-  final String defense;
+  final String defence;
 
   Record({
     required this.date,
     required this.goals,
     required this.assist,
-    required this.defense,
+    required this.defence,
   });
 }
 
