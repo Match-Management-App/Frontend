@@ -1,5 +1,4 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:wanna_play_soccer/API/date_utils.dart';
 
 part 'hall_of_fame.g.dart';
 
