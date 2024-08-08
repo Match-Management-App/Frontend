@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'chemistry_rest.dart';
+part of 'rest_chemistry.dart';
 
 // **************************************************************************
 // RetrofitGenerator

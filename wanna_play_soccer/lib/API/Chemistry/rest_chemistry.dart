@@ -3,7 +3,7 @@ import 'package:retrofit/retrofit.dart';
 
 import 'chemistry.dart';
 
-part 'chemistry_rest.g.dart';
+part 'rest_chemistry.g.dart';
 
 @RestApi()
 abstract class RestChemistry {

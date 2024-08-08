@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'stat_rest.dart';
+part of 'rest_user.dart';
 
 // **************************************************************************
 // RetrofitGenerator
@@ -8,8 +8,8 @@ part of 'stat_rest.dart';
 
 // ignore_for_file: unnecessary_brace_in_string_interps,no_leading_underscores_for_local_identifiers,unused_element
 
-class _RestStat implements RestStat {
-  _RestStat(
+class _RestUser implements RestUser {
+  _RestUser(
     this._dio, {
     this.baseUrl,
   });
@@ -19,48 +19,20 @@ class _RestStat implements RestStat {
   String? baseUrl;
 
   @override
-  Future<Stat> createStat(Stat stat) async {
-    final _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    _data.addAll(stat.toJson());
-    final _result =
-        await _dio.fetch<Map<String, dynamic>>(_setStreamType<Stat>(Options(
-      method: 'POST',
-      headers: _headers,
-      extra: _extra,
-    )
-            .compose(
-              _dio.options,
-              '/v1/stat',
-              queryParameters: queryParameters,
-              data: _data,
-            )
-            .copyWith(
-                baseUrl: _combineBaseUrls(
-              _dio.options.baseUrl,
-              baseUrl,
-            ))));
-    final _value = Stat.fromJson(_result.data!);
-    return _value;
-  }
-
-  @override
-  Future<List<RecentRecord>> getRecentRecord() async {
+  Future<User> getUser() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _result = await _dio
-        .fetch<List<dynamic>>(_setStreamType<List<RecentRecord>>(Options(
+    final _result =
+        await _dio.fetch<Map<String, dynamic>>(_setStreamType<User>(Options(
       method: 'GET',
       headers: _headers,
       extra: _extra,
     )
             .compose(
               _dio.options,
-              '/v1/stat/recently-record',
+              '/v1/users/me',
               queryParameters: queryParameters,
               data: _data,
             )
@@ -69,9 +41,7 @@ class _RestStat implements RestStat {
               _dio.options.baseUrl,
               baseUrl,
             ))));
-    var _value = _result.data!
-        .map((dynamic i) => RecentRecord.fromJson(i as Map<String, dynamic>))
-        .toList();
+    final _value = User.fromJson(_result.data!);
     return _value;
   }
 

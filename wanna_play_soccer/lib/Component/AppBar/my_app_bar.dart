@@ -1,7 +1,7 @@
 import "package:dio/dio.dart";
 import "package:flutter/material.dart";
-import "package:wanna_play_soccer/API/user.dart";
-import "package:wanna_play_soccer/API/user_rest.dart";
+import "package:wanna_play_soccer/API/User/user.dart";
+import "package:wanna_play_soccer/API/User/rest_user.dart";
 import "package:wanna_play_soccer/Component/AppBar/my_tab_bar.dart";
 import "package:wanna_play_soccer/Theme/my_colors.dart";
 import "package:wanna_play_soccer/Theme/my_theme.dart";
@@ -57,9 +57,10 @@ class _MyAppBarState extends State<MyAppBar> {
       sliver: SliverAppBar(
         title: Container(
           padding: const EdgeInsets.all(20),
-          child: Text(
-            '안녕하세요 $_userName 님👏',
-            style: const TextStyle(
+          child: const Text(
+            // $_userName
+            '안녕하세요 USER 님👏',
+            style: TextStyle(
               color: MyColors.myWhite,
               fontSize: 24,
             ),

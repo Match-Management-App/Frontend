@@ -3,7 +3,7 @@ import 'package:retrofit/retrofit.dart';
 
 import 'stat.dart';
 
-part 'stat_rest.g.dart';
+part 'rest_stat.g.dart';
 
 @RestApi()
 abstract class RestStat {

@@ -3,7 +3,7 @@ import 'package:retrofit/retrofit.dart';
 
 import 'user.dart';
 
-part 'user_rest.g.dart';
+part 'rest_user.g.dart';
 
 @RestApi()
 abstract class RestUser {
