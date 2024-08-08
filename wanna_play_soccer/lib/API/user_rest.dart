@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
-import 'package:wanna_play_soccer/env.dart';
 
 import 'user.dart';
 
