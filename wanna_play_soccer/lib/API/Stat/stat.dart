@@ -1,12 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:wanna_play_soccer/API/date_utils.dart';
 
 part 'stat.g.dart';
-
-class DateUtils {
-  static DateTime dateTimeFromString(String date) => DateTime.parse(date);
-  static String dateTimeToString(DateTime date) => date.toIso8601String();
-}
 
 @JsonSerializable()
 class Stat {
@@ -15,8 +10,8 @@ class Stat {
   final int defense;
   @JsonKey(
       name: 'matchDate',
-      fromJson: DateUtils.dateTimeFromString,
-      toJson: DateUtils.dateTimeToString)
+      fromJson: MyDateUtils.dateTimeFromString,
+      toJson: MyDateUtils.dateTimeToString)
   final DateTime matchDate;
 
   Stat({
@@ -34,8 +29,8 @@ class Stat {
 class RecentRecord {
   @JsonKey(
       name: 'date',
-      fromJson: DateUtils.dateTimeFromString,
-      toJson: DateUtils.dateTimeToString)
+      fromJson: MyDateUtils.dateTimeFromString,
+      toJson: MyDateUtils.dateTimeToString)
   final DateTime date;
   final int goals;
   final int assist;
