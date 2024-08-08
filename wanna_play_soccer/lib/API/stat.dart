@@ -10,14 +10,14 @@ class DateUtils {
 
 @JsonSerializable()
 class Stat {
-  int goals;
-  int assist;
-  int defense;
+  final int goals;
+  final int assist;
+  final int defense;
   @JsonKey(
       name: 'matchDate',
       fromJson: DateUtils.dateTimeFromString,
       toJson: DateUtils.dateTimeToString)
-  DateTime matchDate;
+  final DateTime matchDate;
 
   Stat({
     required this.goals,
@@ -36,10 +36,10 @@ class RecentRecord {
       name: 'date',
       fromJson: DateUtils.dateTimeFromString,
       toJson: DateUtils.dateTimeToString)
-  DateTime date;
-  int goals;
-  int assist;
-  int defense;
+  final DateTime date;
+  final int goals;
+  final int assist;
+  final int defense;
 
   RecentRecord({
     required this.date,
