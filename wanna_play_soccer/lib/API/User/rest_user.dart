@@ -10,6 +10,5 @@ abstract class RestUser {
   factory RestUser(Dio dio, {String baseUrl}) = _RestUser;
 
   @GET('/v1/users/me')
-  // Future<User> getUser({@Header('Authorization') required String token});
-  Future<User> getUser();
+  Future<User> getUser({@Header('Authorization') required String token});
 }

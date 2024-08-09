@@ -1,5 +1,6 @@
 import "package:dio/dio.dart";
 import "package:flutter/material.dart";
+import "package:flutter_secure_storage/flutter_secure_storage.dart";
 import "package:wanna_play_soccer/API/User/user.dart";
 import "package:wanna_play_soccer/API/User/rest_user.dart";
 import "package:wanna_play_soccer/Component/AppBar/my_tab_bar.dart";
@@ -24,6 +25,8 @@ class MyAppBar extends StatefulWidget {
 class _MyAppBarState extends State<MyAppBar> {
   late RestUser _restUser;
   String _userName = 'User';
+  static const storage = FlutterSecureStorage();
+  late final token;
 
   @override
   void initState() {
@@ -34,14 +37,14 @@ class _MyAppBarState extends State<MyAppBar> {
 
   void _initializeRestUser() {
     final dio = Dio();
-    // dio.options.headers['Authorization'] =
-    //     'Bearer YOUR_TOKEN_HERE';
     _restUser = RestUser(dio, baseUrl: Env.baseUrl);
   }
 
   Future<void> _loadUserName() async {
     try {
-      User user = await _restUser.getUser();
+      token = await storage.read(key: 'accessToken');
+
+      User user = await _restUser.getUser(token: token);
       setState(() {
         _userName = user.userName;
       });
