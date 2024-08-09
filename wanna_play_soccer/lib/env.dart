@@ -6,4 +6,7 @@ part 'env.g.dart';
 abstract class Env {
   @EnviedField(varName: 'BASE_URL', obfuscate: true)
   static final String baseUrl = _Env.baseUrl;
+
+  @EnviedField(varName: 'KAKAO_API_KEY', obfuscate: true)
+  static final String kakaoNativeAppKey = _Env.kakaoNativeAppKey;
 }

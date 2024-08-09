@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:wanna_play_soccer/Pages/HomeScreen/main_screen.dart';
+import 'package:kakao_flutter_sdk/kakao_flutter_sdk_template.dart';
 import 'package:wanna_play_soccer/Pages/Login/login.dart';
 import 'package:wanna_play_soccer/Theme/my_colors.dart';
+import 'package:wanna_play_soccer/env.dart';
 
 void main() async {
+  /// * env 파일을 읽기
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+
+  /// * Kakao SDK 초기화
+  KakaoSdk.init(nativeAppKey: Env.kakaoNativeAppKey);
 
   runApp(const MyApp());
 }
