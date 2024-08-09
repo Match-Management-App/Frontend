@@ -1,11 +1,11 @@
 import "package:dio/dio.dart";
 import "package:flutter/material.dart";
-import "package:flutter_secure_storage/flutter_secure_storage.dart";
 import "package:wanna_play_soccer/API/User/user.dart";
 import "package:wanna_play_soccer/API/User/rest_user.dart";
 import "package:wanna_play_soccer/Component/AppBar/my_tab_bar.dart";
 import "package:wanna_play_soccer/Theme/my_colors.dart";
 import "package:wanna_play_soccer/Theme/my_theme.dart";
+import "package:wanna_play_soccer/constant.dart";
 import "package:wanna_play_soccer/env.dart";
 
 class MyAppBar extends StatefulWidget {
@@ -25,7 +25,6 @@ class MyAppBar extends StatefulWidget {
 class _MyAppBarState extends State<MyAppBar> {
   late RestUser _restUser;
   String _userName = 'User';
-  static const storage = FlutterSecureStorage();
   late final token;
 
   @override
@@ -43,13 +42,15 @@ class _MyAppBarState extends State<MyAppBar> {
   Future<void> _loadUserName() async {
     try {
       token = await storage.read(key: 'accessToken');
+      debugPrint('token: $token');
 
       User user = await _restUser.getUser(token: token);
+
       setState(() {
         _userName = user.userName;
       });
     } catch (e) {
-      print('Failed to load user name: $e');
+      debugPrint('Failed to load user name: $e');
     }
   }
 
@@ -60,10 +61,9 @@ class _MyAppBarState extends State<MyAppBar> {
       sliver: SliverAppBar(
         title: Container(
           padding: const EdgeInsets.all(20),
-          child: const Text(
-            // $_userName
-            '안녕하세요 USER 님👏',
-            style: TextStyle(
+          child: Text(
+            '안녕하세요 $_userName 님👏',
+            style: const TextStyle(
               color: MyColors.myWhite,
               fontSize: 24,
             ),

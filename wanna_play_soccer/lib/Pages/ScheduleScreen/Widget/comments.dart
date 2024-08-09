@@ -81,7 +81,7 @@ class CommentInput extends StatelessWidget {
   final TextEditingController _controller;
 
   void _onSubmit() {
-    print('send comment: ${_controller.text}');
+    debugPrint('send comment: ${_controller.text}');
     _controller.clear();
   }
 

@@ -1,6 +1,5 @@
-import 'dart:ffi';
-
 import 'package:dio/dio.dart' as dio;
+import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:wanna_play_soccer/API/Auth/rest_refresh.dart';
 import 'package:wanna_play_soccer/env.dart';
@@ -15,7 +14,7 @@ class CustomInterceptor extends dio.Interceptor {
   @override
   void onRequest(
       dio.RequestOptions options, dio.RequestInterceptorHandler handler) async {
-    print('[REQ] [${options.method}] => ${options.uri}');
+    debugPrint('[REQ] [${options.method}] => ${options.uri}');
 
     if (options.headers['accessToken'] == 'true') {
       options.headers.remove('accessToken');
@@ -31,7 +30,7 @@ class CustomInterceptor extends dio.Interceptor {
   @override
   void onResponse(
       dio.Response response, dio.ResponseInterceptorHandler handler) {
-    print(
+    debugPrint(
       '[RES] [${response.statusCode}] [${response.requestOptions.method}] ${response.statusCode} ${response.requestOptions.uri}',
     );
 
@@ -41,7 +40,7 @@ class CustomInterceptor extends dio.Interceptor {
   @override
   void onError(
       dio.DioException err, dio.ErrorInterceptorHandler handler) async {
-    print(
+    debugPrint(
       '[ERR] [${err.response?.statusCode}] [${err.requestOptions.method}] => ${err.requestOptions.uri}',
     );
 

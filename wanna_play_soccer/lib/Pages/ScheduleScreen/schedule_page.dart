@@ -31,7 +31,7 @@ class _SchedulePageState extends State<SchedulePage> {
         isVoteResultOpened = !isVoteResultOpened;
       }
       resultDate = date;
-      print(date);
+      debugPrint(date);
     });
   }
 
@@ -46,7 +46,7 @@ class _SchedulePageState extends State<SchedulePage> {
         isNonMatchDayClicked = !isNonMatchDayClicked;
       }
     });
-    // print("onPressed: $date");
+    // debugPrint("onPressed: $date");
   }
 
   static int getHashCode(DateTime key) {

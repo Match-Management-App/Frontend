@@ -125,7 +125,7 @@ class _VoteForNextMatchState extends State<VoteForNextMatch> {
             padding: const EdgeInsets.only(right: 20),
             child: ElevatedButton(
               onPressed: () {
-                print(_checkedStates);
+                debugPrint('$_checkedStates');
                 widget.onSubmit();
               },
               style: ButtonStyle(
@@ -202,7 +202,7 @@ class VoteResult extends StatelessWidget {
             padding: const EdgeInsets.only(top: 10, right: 10),
             child: ElevatedButton(
               onPressed: () {
-                print('edit');
+                debugPrint('edit');
                 onEdit();
               },
               style: ButtonStyle(
