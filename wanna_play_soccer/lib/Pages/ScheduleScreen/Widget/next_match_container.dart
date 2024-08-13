@@ -11,7 +11,7 @@ class NextMatchContainer extends StatelessWidget {
       width: double.infinity,
       height: 60,
       alignment: Alignment.center,
-      margin: const EdgeInsets.only(top: 40, bottom: 10),
+      margin: const EdgeInsets.only(top: 20, bottom: 10),
       decoration: BoxDecoration(
         color: MyColors.primaryMint,
         borderRadius: BorderRadius.circular(20),
