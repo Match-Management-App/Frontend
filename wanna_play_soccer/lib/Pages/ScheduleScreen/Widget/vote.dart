@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:wanna_play_soccer/Theme/my_colors.dart';
 import 'package:wanna_play_soccer/Theme/my_theme.dart';
+
+enum VoteOpt {
+  attend,
+  absent,
+}
 
 class VoteWidget extends StatefulWidget {
   const VoteWidget({
@@ -35,19 +39,24 @@ class _VoteWidgetState extends State<VoteWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedContainer(
-      duration: const Duration(milliseconds: 300),
-      curve: Curves.easeInOut,
-      // margin: const EdgeInsets.only(bottom: 10),
-      width: double.infinity,
-      decoration: MyTheme.widgetDecoration,
-      child: AnimatedSize(
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.easeInOut,
-        child: _showResult
-            ? VoteResult(onEdit: _onEdit, onTap: widget.onTap)
-            : VoteForNextMatch(onSubmit: _onSubmit),
-      ),
+    return Column(
+      children: [
+        AnimatedContainer(
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeInOut,
+          // margin: const EdgeInsets.only(bottom: 10),
+          width: double.infinity,
+          decoration: MyTheme.widgetDecoration,
+          child: AnimatedSize(
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.easeInOut,
+            child: _showResult
+                ? VoteResult(onEdit: _onEdit, onTap: widget.onTap)
+                : VoteForNextMatch(onSubmit: _onSubmit),
+          ),
+        ),
+        // if (_showResult) const AttendingPlayers(),
+      ],
     );
   }
 }
@@ -65,18 +74,11 @@ class VoteForNextMatch extends StatefulWidget {
 }
 
 class _VoteForNextMatchState extends State<VoteForNextMatch> {
-  final List<String> _voteOptions = [
-    "7월 30일",
-    "8월 1일",
-    "8월 1일",
+  final List<Map<String, dynamic>> _voteOpts = [
+    {'option': VoteOpt.attend, 'label': '참석'},
+    {'option': VoteOpt.absent, 'label': '불참'},
   ];
-  late List<bool> _checkedStates;
-
-  @override
-  void initState() {
-    super.initState();
-    _checkedStates = List.generate(_voteOptions.length, (_) => false);
-  }
+  VoteOpt? _selectedOption;
 
   @override
   Widget build(BuildContext context) {
@@ -90,34 +92,33 @@ class _VoteForNextMatchState extends State<VoteForNextMatch> {
             child: Container(
               padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
               child: Column(
-                children: List.generate(
-                  _voteOptions.length,
-                  (index) => Row(
-                    children: [
-                      Checkbox(
-                        value: _checkedStates[index],
-                        activeColor: MyColors.primaryMint,
-                        checkColor: MyColors.myDarkGrey,
-                        side: WidgetStateBorderSide.resolveWith(
-                          (Set<WidgetState> states) {
-                            if (states.contains(WidgetState.selected)) {
-                              return const BorderSide(
-                                  color: MyColors.primaryMint);
-                            }
-                            return const BorderSide(
-                                width: 1.7, color: MyColors.myGrey);
-                          },
-                        ),
-                        onChanged: (bool? value) {
-                          setState(() {
-                            _checkedStates[index] = value ?? false;
-                          });
-                        },
+                children: _voteOpts
+                    .map(
+                      (option) => Row(
+                        children: [
+                          Radio<VoteOpt>(
+                            value: option['option'],
+                            groupValue: _selectedOption,
+                            activeColor: MyColors.primaryMint,
+                            fillColor: WidgetStateProperty.resolveWith<Color>(
+                              (Set<WidgetState> states) {
+                                if (states.contains(WidgetState.selected)) {
+                                  return MyColors.primaryMint;
+                                }
+                                return MyColors.myGrey;
+                              },
+                            ),
+                            onChanged: (VoteOpt? value) {
+                              setState(() {
+                                _selectedOption = value;
+                              });
+                            },
+                          ),
+                          Text(option['label'], style: MyTheme.defaultText),
+                        ],
                       ),
-                      Text(_voteOptions[index], style: MyTheme.defaultText),
-                    ],
-                  ),
-                ),
+                    )
+                    .toList(),
               ),
             ),
           ),
@@ -125,7 +126,7 @@ class _VoteForNextMatchState extends State<VoteForNextMatch> {
             padding: const EdgeInsets.only(right: 20),
             child: ElevatedButton(
               onPressed: () {
-                debugPrint('$_checkedStates');
+                debugPrint('$_selectedOption');
                 widget.onSubmit();
               },
               style: ButtonStyle(
@@ -152,8 +153,8 @@ class _VoteForNextMatchState extends State<VoteForNextMatch> {
   }
 }
 
-class VoteResult extends StatelessWidget {
-  VoteResult({
+class VoteResult extends StatefulWidget {
+  const VoteResult({
     super.key,
     required this.onEdit,
     required this.onTap,
@@ -162,48 +163,42 @@ class VoteResult extends StatelessWidget {
   final VoidCallback onEdit;
   final Function(String) onTap;
 
-  final Map<String, int> _voteResults = {
-    "7월 30일": 10,
-    "8월 1일": 15,
-    "8월 2일": 20,
-  };
+  @override
+  State<VoteResult> createState() => _VoteResultState();
+}
+
+class _VoteResultState extends State<VoteResult> {
+  final bool _isAttending = true;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    int maxResult =
-        _voteResults.values.reduce((max, value) => max > value ? max : value);
-
     return Container(
       padding: const EdgeInsets.fromLTRB(30, 30, 30, 20),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
             padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: _voteResults.entries.map((entry) {
-                return Column(
-                  children: [
-                    VoteResultBar(
-                      date: entry.key,
-                      result: entry.value,
-                      maxResult: maxResult,
-                      onTap: onTap,
-                    ),
-                    SizedBox(
-                        height: entry.key == _voteResults.keys.last ? 0 : 20),
-                  ],
-                );
-              }).toList(),
+              children: [
+                Text(_isAttending ? "참석" : "불참", style: MyTheme.defaultText),
+              ],
             ),
           ),
-          Padding(
+          Container(
+            margin: const EdgeInsets.only(left: 250),
             padding: const EdgeInsets.only(top: 10, right: 10),
             child: ElevatedButton(
               onPressed: () {
                 debugPrint('edit');
-                onEdit();
+                widget.onEdit();
               },
               style: ButtonStyle(
                 minimumSize: WidgetStateProperty.all(Size.zero),
@@ -229,68 +224,134 @@ class VoteResult extends StatelessWidget {
   }
 }
 
-class VoteResultBar extends StatelessWidget {
-  const VoteResultBar({
-    super.key,
-    required this.date,
-    required this.result,
-    required this.maxResult,
-    required this.onTap,
-  });
+class AttendingPlayers extends StatefulWidget {
+  const AttendingPlayers({super.key});
 
-  final String date;
-  final int result;
-  final int maxResult;
-  final Function(String) onTap;
+  @override
+  State<AttendingPlayers> createState() => _AttendingPlayersState();
+}
+
+class _AttendingPlayersState extends State<AttendingPlayers> {
+  final _attendingPlayers = ["user1", "user2", "user3"];
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return Column(
       children: [
-        SizedBox(
-          width: 90,
-          child: Text(date, style: MyTheme.defaultText),
-        ),
-        Expanded(
-          child: Container(
-            height: 8,
-            decoration: BoxDecoration(
-              color: MyColors.myDarkGrey,
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: FractionallySizedBox(
-              alignment: Alignment.centerLeft,
-              widthFactor: result / maxResult,
-              child: Container(
-                decoration: MyTheme.pipeDecoration,
-              ),
-            ),
-          ),
-        ),
-        const SizedBox(width: 10),
-        GestureDetector(
-          onTap: () {
-            onTap(date);
-          },
+        Padding(
+          padding: const EdgeInsets.fromLTRB(20, 20, 10, 10),
           child: Row(
             children: [
-              SizedBox(
-                width: 40,
-                child: Text(
-                  '$result명',
-                  style: const TextStyle(color: MyColors.myWhite, fontSize: 14),
-                  textAlign: TextAlign.right,
-                ),
+              Container(
+                width: 3,
+                height: 20,
+                margin: const EdgeInsets.only(right: 10),
+                decoration: MyTheme.pipeDecoration,
               ),
-              const Icon(
-                Icons.chevron_right_rounded,
-                color: MyColors.myWhite,
-                size: 14,
-              ),
+              const Text('참여자', style: MyTheme.header3),
             ],
+          ),
+        ),
+        Container(
+          // height: 300,
+          padding: const EdgeInsets.all(30),
+          decoration: MyTheme.widgetDecoration,
+          child: Column(
+            children:
+                List.generate((_attendingPlayers.length / 2).ceil(), (index) {
+              return Padding(
+                padding: const EdgeInsets.all(10),
+                child: Row(
+                  children: [
+                    if (index * 2 < _attendingPlayers.length)
+                      Expanded(
+                        child: Text(
+                          _attendingPlayers[index * 2],
+                          style: MyTheme.voteResult,
+                        ),
+                      ),
+                    const SizedBox(width: 20),
+                    if (index * 2 + 1 < _attendingPlayers.length)
+                      Expanded(
+                        child: Text(
+                          _attendingPlayers[index * 2 + 1],
+                          style: MyTheme.voteResult,
+                        ),
+                      ),
+                  ],
+                ),
+              );
+            }),
           ),
         ),
       ],
     );
   }
 }
+
+
+// class VoteResultBar extends StatelessWidget {
+//   const VoteResultBar({
+//     super.key,
+//     required this.date,
+//     required this.result,
+//     required this.maxResult,
+//     required this.onTap,
+//   });
+
+//   final String date;
+//   final int result;
+//   final int maxResult;
+//   final Function(String) onTap;
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Row(
+//       children: [
+//         SizedBox(
+//           width: 90,
+//           child: Text(date, style: MyTheme.defaultText),
+//         ),
+//         Expanded(
+//           child: Container(
+//             height: 8,
+//             decoration: BoxDecoration(
+//               color: MyColors.myDarkGrey,
+//               borderRadius: BorderRadius.circular(10),
+//             ),
+//             child: FractionallySizedBox(
+//               alignment: Alignment.centerLeft,
+//               widthFactor: result / maxResult,
+//               child: Container(
+//                 decoration: MyTheme.pipeDecoration,
+//               ),
+//             ),
+//           ),
+//         ),
+//         const SizedBox(width: 10),
+//         GestureDetector(
+//           onTap: () {
+//             onTap(date);
+//           },
+//           child: Row(
+//             children: [
+//               SizedBox(
+//                 width: 40,
+//                 child: Text(
+//                   '$result명',
+//                   style: const TextStyle(color: MyColors.myWhite, fontSize: 14),
+//                   textAlign: TextAlign.right,
+//                 ),
+//               ),
+//               const Icon(
+//                 Icons.chevron_right_rounded,
+//                 color: MyColors.myWhite,
+//                 size: 14,
+//               ),
+//             ],
+//           ),
+//         ),
+//       ],
+//     );
+//   }
+// }

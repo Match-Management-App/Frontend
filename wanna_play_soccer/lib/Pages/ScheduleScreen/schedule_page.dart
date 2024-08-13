@@ -62,7 +62,7 @@ class _SchedulePageState extends State<SchedulePage> {
       DateTime(2024, 8, 12): [Event(title: "Event on July 12")],
     });
 
-  final _voteResults = ["user1", "user2", "user3"];
+  final _attendingPlayers = ["user1", "user2", "user3"];
 
   @override
   Widget build(BuildContext context) {
@@ -75,90 +75,24 @@ class _SchedulePageState extends State<SchedulePage> {
         child: Column(
           children: [
             const NextMatchContainer(),
-            const Subtitle(icon: "🗳️", subtitle: "경기일 투표"),
+            const Subtitle(icon: "🗳️", subtitle: "참여 여부"),
             VoteWidget(onTap: onTap),
-            if (isVoteResultOpened)
-              VoteResult(
-                res: _voteResults,
-                date: resultDate,
-              ),
+            // if (isVoteResultOpened) AttendingPlayers(res: _attendingPlayers),
+            const SizedBox(height: 20),
+            const CommentSection(),
             const SizedBox(height: 20),
             const Subtitle(icon: "📆", subtitle: "경기 일정"),
             CalendarWidget(
               events: _events,
               onPressed: onPressed,
             ),
-            if (selectedDate != null)
-              CommentSection(date: selectedDate!)
-            else if (isNonMatchDayClicked)
-              const DefaultSection()
+            // if (selectedDate != null)
+            //   CommentSection(date: selectedDate!)
+            // else if (isNonMatchDayClicked)
+            //   const DefaultSection()
           ],
         ),
       ),
-    );
-  }
-}
-
-class VoteResult extends StatelessWidget {
-  const VoteResult({
-    super.key,
-    required this.res,
-    required this.date,
-  });
-
-  final List<String> res;
-  final String date;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.fromLTRB(20, 20, 10, 10),
-          child: Row(
-            children: [
-              Container(
-                width: 3,
-                height: 20,
-                margin: const EdgeInsets.only(right: 10),
-                decoration: MyTheme.pipeDecoration,
-              ),
-              Text('$date 참여자', style: MyTheme.header3),
-            ],
-          ),
-        ),
-        Container(
-          // height: 300,
-          padding: const EdgeInsets.all(30),
-          decoration: MyTheme.widgetDecoration,
-          child: Column(
-            children: List.generate((res.length / 2).ceil(), (index) {
-              return Padding(
-                padding: const EdgeInsets.all(10),
-                child: Row(
-                  children: [
-                    if (index * 2 < res.length)
-                      Expanded(
-                        child: Text(
-                          res[index * 2],
-                          style: MyTheme.voteResult,
-                        ),
-                      ),
-                    const SizedBox(width: 20),
-                    if (index * 2 + 1 < res.length)
-                      Expanded(
-                        child: Text(
-                          res[index * 2 + 1],
-                          style: MyTheme.voteResult,
-                        ),
-                      ),
-                  ],
-                ),
-              );
-            }),
-          ),
-        ),
-      ],
     );
   }
 }
