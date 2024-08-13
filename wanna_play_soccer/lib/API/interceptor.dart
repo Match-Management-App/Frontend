@@ -2,7 +2,7 @@ import 'package:dio/dio.dart' as dio;
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:wanna_play_soccer/API/Auth/rest_refresh.dart';
-import 'package:wanna_play_soccer/env.dart';
+import 'package:wanna_play_soccer/Utils/env.dart';
 
 class CustomInterceptor extends dio.Interceptor {
   // local storage
@@ -15,6 +15,9 @@ class CustomInterceptor extends dio.Interceptor {
   void onRequest(
       dio.RequestOptions options, dio.RequestInterceptorHandler handler) async {
     debugPrint('[REQ] [${options.method}] => ${options.uri}');
+
+    debugPrint('[REQ_HEADER] ${options.headers}');
+    debugPrint('[REQ_DATA] ${options.data}');
 
     if (options.headers['accessToken'] == 'true') {
       options.headers.remove('accessToken');

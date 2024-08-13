@@ -3,7 +3,7 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk_template.dart';
 import 'package:wanna_play_soccer/Pages/Login/login.dart';
 import 'package:wanna_play_soccer/Theme/my_colors.dart';
-import 'package:wanna_play_soccer/env.dart';
+import 'package:wanna_play_soccer/Utils/env.dart';
 
 void main() async {
   /// * env 파일을 읽기

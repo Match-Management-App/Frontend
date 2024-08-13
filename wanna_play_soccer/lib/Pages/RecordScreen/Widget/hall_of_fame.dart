@@ -1,21 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:wanna_play_soccer/API/HOF/hall_of_fame.dart';
+import 'package:wanna_play_soccer/API/HOF/rest_hall_of_fame.dart';
 import 'package:wanna_play_soccer/Component/rank.dart';
 import 'package:wanna_play_soccer/Theme/my_colors.dart';
 import 'package:wanna_play_soccer/Theme/my_theme.dart';
+import 'package:wanna_play_soccer/Utils/env.dart';
+import 'package:wanna_play_soccer/Utils/global.dart';
 
-class HallOfFame extends StatefulWidget {
-  const HallOfFame({super.key});
+class HallOfFameWidget extends StatefulWidget {
+  const HallOfFameWidget({super.key});
 
   @override
-  State<HallOfFame> createState() => _HallOfFameState();
+  State<HallOfFameWidget> createState() => _HallOfFameWidgetState();
 }
 
-class _HallOfFameState extends State<HallOfFame> {
+class _HallOfFameWidgetState extends State<HallOfFameWidget> {
   late final PageController _controller;
 
   final List<Widget> _pages = [
-    const HOF(title: "득점"),
+    const HOFGoal(title: "득점"),
     const HOF(title: "어시스트"),
     const HOF(title: "수비"),
     const HOF(title: "출석"),
@@ -89,6 +93,60 @@ class HOF extends StatelessWidget {
           child: WidgetTitle(title: title),
         ),
         const Ranking(first: "first", second: "second", third: "third"),
+      ],
+    );
+  }
+}
+
+class HOFGoal extends StatefulWidget {
+  const HOFGoal({
+    super.key,
+    required this.title,
+  });
+
+  final String title;
+
+  @override
+  State<HOFGoal> createState() => _HOFGoalState();
+}
+
+class _HOFGoalState extends State<HOFGoal> {
+  late RestHOF _restGoals;
+  List<HallOfFame> goals = [
+    HallOfFame(userName: "dummy1", stats: 1),
+    HallOfFame(userName: "dummy2", stats: 2),
+    HallOfFame(userName: "dummy3", stats: 3),
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+
+    _initRestGoals();
+    _loadGoals();
+  }
+
+  _initRestGoals() {
+    _restGoals = RestHOF(dio, baseUrl: Env.baseUrl);
+  }
+
+  Future<void> _loadGoals() async {
+    try {
+      List<HallOfFame> goals = await _restGoals.getHOFGoals();
+    } catch (e) {
+      debugPrint("[ERR] Fail to load Hall Of Fame <Goals>: $e");
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(5),
+          child: WidgetTitle(title: widget.title),
+        ),
+        Ranking(first: goals.first.userName, second: "second", third: "third"),
       ],
     );
   }

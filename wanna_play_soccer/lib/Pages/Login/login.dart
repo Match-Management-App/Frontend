@@ -4,7 +4,7 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk_talk.dart';
 import 'package:wanna_play_soccer/Pages/HomeScreen/main_screen.dart';
 import 'package:wanna_play_soccer/Theme/my_colors.dart';
-import 'package:wanna_play_soccer/constant.dart';
+import 'package:wanna_play_soccer/Utils/global.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});

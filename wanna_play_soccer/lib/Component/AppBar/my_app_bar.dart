@@ -1,12 +1,11 @@
-import "package:dio/dio.dart";
 import "package:flutter/material.dart";
 import "package:wanna_play_soccer/API/User/user.dart";
 import "package:wanna_play_soccer/API/User/rest_user.dart";
 import "package:wanna_play_soccer/Component/AppBar/my_tab_bar.dart";
 import "package:wanna_play_soccer/Theme/my_colors.dart";
 import "package:wanna_play_soccer/Theme/my_theme.dart";
-import "package:wanna_play_soccer/constant.dart";
-import "package:wanna_play_soccer/env.dart";
+import "package:wanna_play_soccer/Utils/global.dart";
+import "package:wanna_play_soccer/Utils/env.dart";
 
 class MyAppBar extends StatefulWidget {
   const MyAppBar({
@@ -35,7 +34,6 @@ class _MyAppBarState extends State<MyAppBar> {
   }
 
   void _initializeRestUser() {
-    final dio = Dio();
     _restUser = RestUser(dio, baseUrl: Env.baseUrl);
   }
 
@@ -44,7 +42,7 @@ class _MyAppBarState extends State<MyAppBar> {
       token = await storage.read(key: 'accessToken');
       debugPrint('token: $token');
 
-      User user = await _restUser.getUser(token: token);
+      User user = await _restUser.getUser(token: 'Bearer $token');
 
       setState(() {
         _userName = user.userName;

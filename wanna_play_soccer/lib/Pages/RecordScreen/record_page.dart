@@ -34,7 +34,7 @@ class _RecordPageState extends State<RecordPage> {
               child: const RecordChart(),
             ),
             const Subtitle(icon: "👑", subtitle: "명예의 전당"),
-            const HallOfFame(),
+            const HallOfFameWidget(),
           ],
         ),
       ),
