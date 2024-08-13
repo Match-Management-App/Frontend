@@ -52,80 +52,80 @@ class _MyAppBarState extends State<MyAppBar> {
     }
   }
 
-  // @override
-  // Widget build(BuildContext context) {
-  //   return SliverOverlapAbsorber(
-  //     handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
-  //     sliver: SliverAppBar(
-  //       title: Container(
-  //         padding: const EdgeInsets.all(20),
-  //         child: Text(
-  //           '안녕하세요 $_userName 님👏',
-  //           style: const TextStyle(
-  //             color: MyColors.myWhite,
-  //             fontSize: 24,
-  //           ),
-  //         ),
-  //       ),
-  //       flexibleSpace: ClipRRect(
-  //         child: Container(
-  //           decoration: BoxDecoration(
-  //             gradient: MyTheme.tabBarGradient,
-  //           ),
-  //         ),
-  //       ),
-  //       centerTitle: false,
-  //       pinned: true,
-  //       floating: true,
-  //       forceElevated: widget.innerBoxIsScrolled,
-  //       scrolledUnderElevation: 0,
-  //       backgroundColor: Colors.transparent,
-  //       bottom: PreferredSize(
-  //         preferredSize: const Size.fromHeight(kTextTabBarHeight + 40),
-  //         child: Container(
-  //           padding: const EdgeInsets.only(bottom: 20.0),
-  //           height: kTextTabBarHeight + 40,
-  //           child: MyTabBar(tabController: widget.tabController),
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
-
   @override
   Widget build(BuildContext context) {
-    return SliverAppBar(
-      title: Container(
-        padding: const EdgeInsets.all(20),
-        child: Text(
-          '안녕하세요 $_userName 님👏',
-          style: const TextStyle(
-            color: MyColors.myWhite,
-            fontSize: 24,
+    return SliverOverlapAbsorber(
+      handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
+      sliver: SliverAppBar(
+        title: Container(
+          padding: const EdgeInsets.all(20),
+          child: Text(
+            '안녕하세요 $_userName 님👏',
+            style: const TextStyle(
+              color: MyColors.myWhite,
+              fontSize: 24,
+            ),
           ),
         ),
-      ),
-      flexibleSpace: ClipRRect(
-        child: Container(
-          decoration: BoxDecoration(
-            gradient: MyTheme.tabBarGradient,
+        flexibleSpace: ClipRRect(
+          child: Container(
+            decoration: BoxDecoration(
+              gradient: MyTheme.tabBarGradient,
+            ),
           ),
         ),
-      ),
-      centerTitle: false,
-      pinned: true,
-      floating: true,
-      forceElevated: widget.innerBoxIsScrolled,
-      scrolledUnderElevation: 0,
-      backgroundColor: Colors.transparent,
-      bottom: PreferredSize(
-        preferredSize: const Size.fromHeight(kTextTabBarHeight + 40),
-        child: Container(
-          padding: const EdgeInsets.only(bottom: 20.0),
-          height: kTextTabBarHeight + 40,
-          child: MyTabBar(tabController: widget.tabController),
+        centerTitle: false,
+        pinned: true,
+        floating: true,
+        forceElevated: widget.innerBoxIsScrolled,
+        scrolledUnderElevation: 0,
+        backgroundColor: Colors.transparent,
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(kTextTabBarHeight + 40),
+          child: Container(
+            padding: const EdgeInsets.only(bottom: 20.0),
+            height: kTextTabBarHeight + 40,
+            child: MyTabBar(tabController: widget.tabController),
+          ),
         ),
       ),
     );
   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return SliverAppBar(
+//       title: Container(
+//         padding: const EdgeInsets.all(20),
+//         child: Text(
+//           '안녕하세요 $_userName 님👏',
+//           style: const TextStyle(
+//             color: MyColors.myWhite,
+//             fontSize: 24,
+//           ),
+//         ),
+//       ),
+//       flexibleSpace: ClipRRect(
+//         child: Container(
+//           decoration: BoxDecoration(
+//             gradient: MyTheme.tabBarGradient,
+//           ),
+//         ),
+//       ),
+//       centerTitle: false,
+//       pinned: true,
+//       floating: true,
+//       forceElevated: widget.innerBoxIsScrolled,
+//       scrolledUnderElevation: 0,
+//       backgroundColor: Colors.transparent,
+//       bottom: PreferredSize(
+//         preferredSize: const Size.fromHeight(kTextTabBarHeight + 40),
+//         child: Container(
+//           padding: const EdgeInsets.only(bottom: 20.0),
+//           height: kTextTabBarHeight + 40,
+//           child: MyTabBar(tabController: widget.tabController),
+//         ),
+//       ),
+//     );
+//   }
 }

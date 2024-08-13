@@ -30,11 +30,12 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    // double screenHeight = MediaQuery.of(context).size.height;
+    double screenHeight = MediaQuery.of(context).size.height;
 
     return SingleChildScrollView(
       child: Container(
-        padding: const EdgeInsets.only(left: 30, right: 30),
+        padding: EdgeInsets.only(
+            top: screenHeight * 0.14, bottom: 40, left: 30, right: 30),
         child: Column(
           children: [
             const Subtitle(icon: "📆", subtitle: "다음 경기"),
