@@ -40,7 +40,6 @@ class _MyAppBarState extends State<MyAppBar> {
   Future<void> _loadUserName() async {
     try {
       token = await storage.read(key: 'accessToken');
-      debugPrint('[MY APP BAR] token: $token');
 
       User user = await _restUser.getUser(token: 'Bearer $token');
 
@@ -60,7 +59,7 @@ class _MyAppBarState extends State<MyAppBar> {
         title: Container(
           padding: const EdgeInsets.all(20),
           child: Text(
-            '안녕하세요 $_userName 님👏',
+            '안녕하세요 $_userName님👏',
             style: const TextStyle(
               color: MyColors.myWhite,
               fontSize: 24,

@@ -54,7 +54,7 @@ class CustomInterceptor extends dio.Interceptor {
 
     if (is401) {
       // 토큰 삭제
-      await storage.delete(key: 'ACCESS_TOKEN');
+      await storage.delete(key: 'accessToken');
       // login page로 이동
       NavigationService.navigateToLogin();
     }

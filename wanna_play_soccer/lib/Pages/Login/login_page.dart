@@ -158,7 +158,8 @@ class _LoginPageState extends State<LoginPage> {
       );
       final login = await _restLogin.login(body: body);
 
-      debugPrint('[INFO] User Info: $login');
+      debugPrint('[JWT] accessToken: ${login.accessToken}');
+      await storage.write(key: 'accessToken', value: login.accessToken);
     } catch (e) {
       rethrow;
     }
