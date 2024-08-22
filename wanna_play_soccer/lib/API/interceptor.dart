@@ -50,6 +50,7 @@ class CustomInterceptor extends dio.Interceptor {
     debugPrint('[ERR] ${err.response?.data}');
 
     final is401 = err.response?.statusCode == 401;
+    final is403 = err.response?.statusCode == 403;
 
     if (is401) {
       // 토큰 삭제
@@ -57,23 +58,31 @@ class CustomInterceptor extends dio.Interceptor {
       // login page로 이동
       NavigationService.navigateToLogin();
     }
+
+    if (is403) {
+      // TODO : reissue api로 토큰 보내기 > 기존 토큰 그대로 body에 넣어서 보내면 됨
+      // 여기서 받은 토큰으로 다시 요청 보내기
+      // 여기서도 403 뜨면 재로그인 해야함
+      // 아마 retry도 고쳐야 할 듯
+    }
+
     return handler.reject(err);
   }
 
-  Future<String> _refreshToken() async {
-    final refreshToken = await storage.read(key: 'REFRESH_TOKEN');
+  // Future<String> _refreshToken() async {
+  //   final refreshToken = await storage.read(key: 'REFRESH_TOKEN');
 
-    if (refreshToken == null) {
-      throw Exception('Refresh token does not exist');
-    }
+  //   if (refreshToken == null) {
+  //     throw Exception('Refresh token does not exist');
+  //   }
 
-    final response = await _refreshApi.refreshToken('Bearer $refreshToken');
-    final newToken = response.data['accessToken'];
+  //   final response = await _refreshApi.refreshToken('Bearer $refreshToken');
+  //   final newToken = response.data['accessToken'];
 
-    await storage.write(key: 'ACCESS_TOKEN', value: newToken);
+  //   await storage.write(key: 'ACCESS_TOKEN', value: newToken);
 
-    return newToken;
-  }
+  //   return newToken;
+  // }
 
   Future<dio.Response<dynamic>> _retryRequest(
       dio.RequestOptions requestOptions, String token) async {

@@ -34,7 +34,6 @@ class _LoginPageState extends State<LoginPage> {
     if (!mounted) return;
 
     if (token != null) {
-      // storage.delete(key: 'accessToken');
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => const HomeScreen()),
@@ -154,7 +153,7 @@ class _LoginPageState extends State<LoginPage> {
     try {
       final body = LoginRequest(
         accessToken: token.accessToken,
-        code: 'testCode',
+        code: Env.loginCode,
         position: 'testPosition',
       );
       final login = await _restLogin.login(body: body);
