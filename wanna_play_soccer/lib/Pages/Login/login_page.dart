@@ -2,18 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk_talk.dart';
+import 'package:wanna_play_soccer/API/Auth/rest_login.dart';
 import 'package:wanna_play_soccer/Pages/HomeScreen/main_screen.dart';
 import 'package:wanna_play_soccer/Theme/my_colors.dart';
+import 'package:wanna_play_soccer/Utils/env.dart';
 import 'package:wanna_play_soccer/Utils/global.dart';
 
-class Login extends StatefulWidget {
-  const Login({super.key});
+class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
 
   @override
-  State<Login> createState() => _LoginState();
+  State<LoginPage> createState() => _LoginPageState();
 }
 
-class _LoginState extends State<Login> {
+class _LoginPageState extends State<LoginPage> {
+  final RestLogin _restLogin = RestLogin(dio, baseUrl: Env.baseUrl);
   bool _imageLoaded = false;
 
   @override
@@ -31,6 +34,7 @@ class _LoginState extends State<Login> {
     if (!mounted) return;
 
     if (token != null) {
+      // storage.delete(key: 'accessToken');
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => const HomeScreen()),
@@ -106,10 +110,11 @@ class _LoginState extends State<Login> {
     if (isKakaoInstalled) {
       try {
         final OAuthToken token = await UserApi.instance.loginWithKakaoTalk();
-        debugPrint('[INFO] 카카오톡 로그인 성공 | token: $token');
 
-        addTokenToLocalStorage(token);
+        // addTokenToLocalStorage(token);
+        await loginWithKakao(token);
         navigateToHomeScreen();
+        debugPrint('[INFO] 카카오톡 로그인 시도 | token: $token');
       } catch (e) {
         debugPrint('[ERR] 카카오톡 로그인 실패: $e');
 
@@ -122,9 +127,10 @@ class _LoginState extends State<Login> {
         try {
           final OAuthToken token =
               await UserApi.instance.loginWithKakaoAccount();
-          debugPrint('[INFO] 카카오 계정 로그인 성공 | token: $token');
+          debugPrint('[INFO] 카카오 계정 로그인 시도 | token: $token');
 
-          addTokenToLocalStorage(token);
+          // addTokenToLocalStorage(token);
+          await loginWithKakao(token);
           navigateToHomeScreen();
         } catch (e) {
           debugPrint('[ERR] 카카오 계정 로그인 실패: $e');
@@ -133,9 +139,10 @@ class _LoginState extends State<Login> {
     } else {
       try {
         final OAuthToken token = await UserApi.instance.loginWithKakaoAccount();
-        debugPrint('[INFO] 카카오 계정 로그인 성공 | token: $token');
+        debugPrint('[INFO] 카카오 계정 로그인 시도 | token: $token');
 
-        addTokenToLocalStorage(token);
+        // addTokenToLocalStorage(token);
+        await loginWithKakao(token);
         navigateToHomeScreen();
       } catch (e) {
         debugPrint('[ERR] 카카오 계정 로그인 실패: $e');
@@ -143,10 +150,25 @@ class _LoginState extends State<Login> {
     }
   }
 
-  void addTokenToLocalStorage(OAuthToken token) async {
-    await storage.write(key: 'accessToken', value: token.accessToken);
-    debugPrint('[INFO] Token saved: ${token.accessToken}');
+  Future<void> loginWithKakao(OAuthToken token) async {
+    try {
+      final body = LoginRequest(
+        accessToken: token.accessToken,
+        code: 'testCode',
+        position: 'testPosition',
+      );
+      final login = await _restLogin.login(body: body);
+
+      debugPrint('[INFO] User Info: $login');
+    } catch (e) {
+      rethrow;
+    }
   }
+
+  // void addTokenToLocalStorage(OAuthToken token) async {
+  //   await storage.write(key: 'accessToken', value: token.accessToken);
+  //   debugPrint('[INFO] Token saved: ${token.accessToken}');
+  // }
 
   void navigateToHomeScreen() {
     Navigator.pushReplacement(

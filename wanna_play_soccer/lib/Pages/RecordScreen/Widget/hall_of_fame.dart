@@ -133,6 +133,7 @@ class _HOFGoalState extends State<HOFGoal> {
   Future<void> _loadGoals() async {
     try {
       List<HallOfFame> goals = await _restGoals.getHOFGoals();
+      debugPrint("[LOG] Load Hall Of Fame <Goals>: $goals");
     } catch (e) {
       debugPrint("[ERR] Fail to load Hall Of Fame <Goals>: $e");
     }

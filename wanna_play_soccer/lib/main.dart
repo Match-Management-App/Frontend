@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk_template.dart';
-import 'package:wanna_play_soccer/Pages/Login/login.dart';
+import 'package:wanna_play_soccer/Pages/HomeScreen/main_screen.dart';
+import 'package:wanna_play_soccer/Pages/Login/login_page.dart';
 import 'package:wanna_play_soccer/Theme/my_colors.dart';
 import 'package:wanna_play_soccer/Utils/env.dart';
+import 'package:wanna_play_soccer/Utils/navigation_service.dart';
 
 void main() async {
   /// * env 파일을 읽기
@@ -22,6 +24,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      navigatorKey: NavigationService.navigatorKey,
+      routes: {
+        '/login': (context) => const LoginPage(),
+        '/home': (context) => const HomeScreen(),
+      },
       debugShowCheckedModeBanner: false,
       title: '⚽️ Wanna Play Soccer? ⚽️',
       theme: ThemeData(
@@ -36,8 +43,8 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      // home: const HomeScreen(),
-      home: const Login(),
+      home: const HomeScreen(),
+      // home: const Login(),
       // home: RetrofitDioJson(),
     );
   }

@@ -40,7 +40,7 @@ class _MyAppBarState extends State<MyAppBar> {
   Future<void> _loadUserName() async {
     try {
       token = await storage.read(key: 'accessToken');
-      debugPrint('token: $token');
+      debugPrint('[MY APP BAR] token: $token');
 
       User user = await _restUser.getUser(token: 'Bearer $token');
 

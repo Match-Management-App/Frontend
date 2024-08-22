@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:wanna_play_soccer/API/Auth/rest_refresh.dart';
 import 'package:wanna_play_soccer/Utils/env.dart';
+import 'package:wanna_play_soccer/Utils/navigation_service.dart';
 
 class CustomInterceptor extends dio.Interceptor {
   // local storage
@@ -46,26 +47,15 @@ class CustomInterceptor extends dio.Interceptor {
     debugPrint(
       '[ERR] [${err.response?.statusCode}] [${err.requestOptions.method}] => ${err.requestOptions.uri}',
     );
-
-    final refreshToken = await storage.read(key: 'REFRESH_TOKEN');
-
-    if (refreshToken == null) {
-      return handler.reject(err);
-    }
+    debugPrint('[ERR] ${err.response?.data}');
 
     final is401 = err.response?.statusCode == 401;
-    final isRefreshRequest = err.requestOptions.path == 'refresh api';
 
-    // accessToken 재발급
-    if (is401 && !isRefreshRequest) {
-      try {
-        final newToken = await _refreshToken();
-        final response = await _retryRequest(err.requestOptions, newToken);
-
-        return handler.resolve(response);
-      } catch (e) {
-        return handler.reject(err);
-      }
+    if (is401) {
+      // 토큰 삭제
+      await storage.delete(key: 'ACCESS_TOKEN');
+      // login page로 이동
+      NavigationService.navigateToLogin();
     }
     return handler.reject(err);
   }
