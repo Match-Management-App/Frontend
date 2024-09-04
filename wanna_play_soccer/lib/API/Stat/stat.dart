@@ -46,7 +46,4 @@ class RecentRecord {
   factory RecentRecord.fromJson(Map<String, dynamic> json) =>
       _$RecentRecordFromJson(json);
   Map<String, dynamic> toJson() => _$RecentRecordToJson(this);
-
-  static DateTime _dateTimeFromString(String date) => DateTime.parse(date);
-  static String _dateTimeToString(DateTime date) => date.toIso8601String();
 }

@@ -2,6 +2,8 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:wanna_play_soccer/API/Stat/rest_stat.dart';
 import 'package:wanna_play_soccer/API/Stat/stat.dart';
+import 'package:wanna_play_soccer/API/date_utils.dart';
+import 'package:wanna_play_soccer/Theme/my_theme.dart';
 import 'package:wanna_play_soccer/Utils/env.dart';
 import "package:wanna_play_soccer/Utils/global.dart";
 import 'package:wanna_play_soccer/Theme/my_colors.dart';
@@ -17,13 +19,16 @@ class _RecordChartState extends State<RecordChart> {
   late RestStat _restStat;
   late final String? token;
   late final List<RecentRecord> recentRecords;
+  late List<Record> paddedRecords = [];
+  late int maxValue = 0;
 
   @override
   void initState() {
     super.initState();
     _initializeRestStat();
-    _loadStat();
-    maxValue = findMaxValue();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _loadStat();
+    });
   }
 
   void _initializeRestStat() {
@@ -36,30 +41,55 @@ class _RecordChartState extends State<RecordChart> {
 
       recentRecords = await _restStat.getRecentRecord(token: 'Bearer $token');
 
-      debugPrint('[LOG] recentRecords: ${recentRecords.first}');
+      setState(() {
+        paddedRecords = _padRecords(recentRecords);
+        maxValue = _findMaxValue(paddedRecords);
+      });
+
+      debugPrint('[LOG] recentRecords: ${recentRecords.length}');
     } catch (e) {
       debugPrint('Failed to load recent records: $e');
     }
   }
 
+  List<Record> _padRecords(List<RecentRecord> records) {
+    List<Record> result = records
+        .map((r) => Record(
+              date: MyDateUtils.dateTimeToString(r.date),
+              goals: r.goals.toString(),
+              assist: r.assist.toString(),
+              defence: r.defence.toString(),
+            ))
+        .toList();
+
+    while (result.length < 4) {
+      result.insert(0, Record(date: '', goals: '0', assist: '0', defence: '0'));
+    }
+
+    debugPrint('[LOG] padded records: ${result.length}');
+    debugPrint('[LOG] padded records: ${result.first}');
+
+    return result;
+  }
+
   final List<Record> records = [
-    Record(date: "2024-07-08", goals: "3", assist: "5", defence: "0"),
-    Record(date: "2024-07-12", goals: "4", assist: "1", defence: "2"),
-    Record(date: "2024-07-21", goals: "3", assist: "3", defence: "0"),
-    Record(date: "2024-07-25", goals: "0", assist: "4", defence: "1"),
+    Record(date: "", goals: "0", assist: "0", defence: "0"),
+    Record(date: "", goals: "0", assist: "0", defence: "0"),
+    Record(date: "", goals: "0", assist: "0", defence: "0"),
+    Record(date: "", goals: "0", assist: "0", defence: "0"),
   ];
 
-  late int maxValue;
-
-  int findMaxValue() {
+  int _findMaxValue(List<Record> records) {
     int max = 0;
     for (var record in records) {
-      max = [
-        max,
-        int.parse(record.goals),
-        int.parse(record.assist),
-        int.parse(record.defence)
-      ].reduce((curr, next) => curr > next ? curr : next);
+      if (record.date.isNotEmpty) {
+        max = [
+          max,
+          int.parse(record.goals),
+          int.parse(record.assist),
+          int.parse(record.defence)
+        ].reduce((curr, next) => curr > next ? curr : next);
+      }
     }
     return max + 1;
   }
@@ -84,9 +114,38 @@ class _RecordChartState extends State<RecordChart> {
           ),
         ),
         Expanded(
-          child: LineChart(
-            sampleData,
-            duration: const Duration(milliseconds: 250),
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              return Stack(
+                children: [
+                  LineChart(
+                    sampleData,
+                    duration: const Duration(milliseconds: 250),
+                  ),
+                  if (paddedRecords.isEmpty ||
+                      paddedRecords.every((record) => record.date.isEmpty))
+                    Positioned(
+                      left: constraints.maxWidth / 2,
+                      top: constraints.maxHeight / 2,
+                      child: Transform.translate(
+                        offset: const Offset(-50, -33), // 메시지 위치 조정
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 5),
+                          decoration: BoxDecoration(
+                            color: MyColors.myBlack.withOpacity(0.7),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: const Text(
+                            "기록이 없습니다",
+                            style: MyTheme.defaultText,
+                          ),
+                        ),
+                      ),
+                    ),
+                ],
+              );
+            },
           ),
         ),
       ],
@@ -196,10 +255,15 @@ class _RecordChartState extends State<RecordChart> {
     );
 
     Widget text;
-    if (value.toInt() >= 0 && value.toInt() < records.length) {
-      String date = records[value.toInt()].date;
-      String formattedDate = "${date.substring(5, 7)}/${date.substring(8, 10)}";
-      text = Text(formattedDate, style: style);
+    if (value.toInt() >= 0 && value.toInt() < paddedRecords.length) {
+      String date = paddedRecords[value.toInt()].date;
+      if (date.isNotEmpty) {
+        String formattedDate =
+            "${date.substring(5, 7)}/${date.substring(8, 10)}";
+        text = Text(formattedDate, style: style);
+      } else {
+        text = const Text('');
+      }
     } else {
       text = const Text('');
     }
@@ -218,7 +282,7 @@ class _RecordChartState extends State<RecordChart> {
         getTitlesWidget: bottomTitleWidgets,
       );
 
-  FlGridData get gridData => const FlGridData(show: true);
+  FlGridData get gridData => const FlGridData(show: false);
 
   FlBorderData get borderData => FlBorderData(
         show: true,
@@ -243,6 +307,11 @@ class _RecordChartState extends State<RecordChart> {
     return records.asMap().entries.map((entry) {
       int i = entry.key;
       Record record = entry.value;
+
+      if (record.date.isEmpty) {
+        return FlSpot.nullSpot;
+      }
+
       double value;
       switch (index) {
         case 0:
