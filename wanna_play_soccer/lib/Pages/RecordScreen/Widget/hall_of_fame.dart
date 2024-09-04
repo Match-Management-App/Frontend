@@ -113,11 +113,10 @@ class HOFGoal extends StatefulWidget {
 class _HOFGoalState extends State<HOFGoal> {
   late final String? token;
   late RestHOF _restGoals;
-
-  List<HallOfFame> goals = [
-    HallOfFame(userName: "dummy1", stats: 1),
-    HallOfFame(userName: "dummy2", stats: 2),
-    HallOfFame(userName: "dummy3", stats: 3),
+  List<HallOfFame> _goals = [
+    HallOfFame(userName: "-", stats: 1),
+    HallOfFame(userName: "-", stats: 2),
+    HallOfFame(userName: "-", stats: 3),
   ];
 
   @override
@@ -125,7 +124,9 @@ class _HOFGoalState extends State<HOFGoal> {
     super.initState();
 
     _initRestGoals();
-    _loadGoals();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _loadGoals();
+    });
   }
 
   _initRestGoals() {
@@ -136,9 +137,14 @@ class _HOFGoalState extends State<HOFGoal> {
     try {
       token = await storage.read(key: 'accessToken');
 
-      List<HallOfFame> goals =
+      List<HallOfFame> recentGoals =
           await _restGoals.getHOFGoals(token: 'Bearer $token');
-      debugPrint("[LOG] Load Hall Of Fame <Goals>: $goals");
+
+      setState(() {
+        _goals = recentGoals;
+      });
+
+      debugPrint("[LOG] Load Hall Of Fame <Goals>: ${_goals.first.userName}");
     } catch (e) {
       debugPrint("[ERR] Fail to load Hall Of Fame <Goals>: $e");
     }
@@ -146,13 +152,16 @@ class _HOFGoalState extends State<HOFGoal> {
 
   @override
   Widget build(BuildContext context) {
+    final first = _goals.isNotEmpty ? _goals.first.userName : "-";
+    final second = _goals.length > 1 ? _goals[1].userName : "-";
+    final third = _goals.length > 2 ? _goals[2].userName : "-";
     return Column(
       children: [
         Padding(
           padding: const EdgeInsets.all(5),
           child: WidgetTitle(title: widget.title),
         ),
-        Ranking(first: goals.first.userName, second: "second", third: "third"),
+        Ranking(first: first, second: second, third: third),
       ],
     );
   }

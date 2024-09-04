@@ -5,7 +5,7 @@ import 'package:wanna_play_soccer/Component/AppBar/my_app_bar.dart';
 import 'package:wanna_play_soccer/Pages/ScheduleScreen/schedule_page.dart';
 import 'package:wanna_play_soccer/Pages/RecordScreen/record_page.dart';
 import 'package:wanna_play_soccer/Theme/my_theme.dart';
-import 'package:wanna_play_soccer/Utils/global.dart';
+// import 'package:wanna_play_soccer/Utils/global.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
