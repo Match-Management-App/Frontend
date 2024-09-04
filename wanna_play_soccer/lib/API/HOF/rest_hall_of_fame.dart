@@ -10,7 +10,8 @@ abstract class RestHOF {
   factory RestHOF(Dio dio, {String baseUrl}) = _RestHOF;
 
   @GET('/v1/record/goals/hall-of-fame')
-  Future<List<HallOfFame>> getHOFGoals();
+  Future<List<HallOfFame>> getHOFGoals(
+      {@Header('authorization') required String token});
 
   @GET('/v1/record/assists/hall-of-fame')
   Future<List<HallOfFame>> getHOFAssists();

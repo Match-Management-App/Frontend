@@ -111,7 +111,9 @@ class HOFGoal extends StatefulWidget {
 }
 
 class _HOFGoalState extends State<HOFGoal> {
+  late final String? token;
   late RestHOF _restGoals;
+
   List<HallOfFame> goals = [
     HallOfFame(userName: "dummy1", stats: 1),
     HallOfFame(userName: "dummy2", stats: 2),
@@ -132,7 +134,10 @@ class _HOFGoalState extends State<HOFGoal> {
 
   Future<void> _loadGoals() async {
     try {
-      List<HallOfFame> goals = await _restGoals.getHOFGoals();
+      token = await storage.read(key: 'accessToken');
+
+      List<HallOfFame> goals =
+          await _restGoals.getHOFGoals(token: 'Bearer $token');
       debugPrint("[LOG] Load Hall Of Fame <Goals>: $goals");
     } catch (e) {
       debugPrint("[ERR] Fail to load Hall Of Fame <Goals>: $e");

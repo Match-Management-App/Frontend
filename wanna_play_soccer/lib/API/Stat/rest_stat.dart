@@ -15,5 +15,6 @@ abstract class RestStat {
   //     @Body() Stat stat, @Header('Authorization') String token);
 
   @GET('/v1/stat/recently-record')
-  Future<List<RecentRecord>> getRecentRecord();
+  Future<List<RecentRecord>> getRecentRecord(
+      {@Header('authorization') required String token});
 }

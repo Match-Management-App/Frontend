@@ -19,10 +19,11 @@ class _RestHOF implements RestHOF {
   String? baseUrl;
 
   @override
-  Future<List<HallOfFame>> getHOFGoals() async {
+  Future<List<HallOfFame>> getHOFGoals({required String token}) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'authorization': token};
+    _headers.removeWhere((k, v) => v == null);
     const Map<String, dynamic>? _data = null;
     final _result = await _dio
         .fetch<List<dynamic>>(_setStreamType<List<HallOfFame>>(Options(

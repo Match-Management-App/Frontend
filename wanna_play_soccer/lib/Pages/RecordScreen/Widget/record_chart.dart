@@ -1,5 +1,9 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:wanna_play_soccer/API/Stat/rest_stat.dart';
+import 'package:wanna_play_soccer/API/Stat/stat.dart';
+import 'package:wanna_play_soccer/Utils/env.dart';
+import "package:wanna_play_soccer/Utils/global.dart";
 import 'package:wanna_play_soccer/Theme/my_colors.dart';
 
 class RecordChart extends StatefulWidget {
@@ -10,6 +14,34 @@ class RecordChart extends StatefulWidget {
 }
 
 class _RecordChartState extends State<RecordChart> {
+  late RestStat _restStat;
+  late final String? token;
+  late final List<RecentRecord> recentRecords;
+
+  @override
+  void initState() {
+    super.initState();
+    _initializeRestStat();
+    _loadStat();
+    maxValue = findMaxValue();
+  }
+
+  void _initializeRestStat() {
+    _restStat = RestStat(dio, baseUrl: Env.baseUrl);
+  }
+
+  Future<void> _loadStat() async {
+    try {
+      token = await storage.read(key: 'accessToken');
+
+      recentRecords = await _restStat.getRecentRecord(token: 'Bearer $token');
+
+      debugPrint('[LOG] recentRecords: ${recentRecords.first}');
+    } catch (e) {
+      debugPrint('Failed to load recent records: $e');
+    }
+  }
+
   final List<Record> records = [
     Record(date: "2024-07-08", goals: "3", assist: "5", defence: "0"),
     Record(date: "2024-07-12", goals: "4", assist: "1", defence: "2"),
@@ -18,12 +50,6 @@ class _RecordChartState extends State<RecordChart> {
   ];
 
   late int maxValue;
-
-  @override
-  void initState() {
-    super.initState();
-    maxValue = findMaxValue();
-  }
 
   int findMaxValue() {
     int max = 0;

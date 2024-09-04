@@ -47,10 +47,11 @@ class _RestStat implements RestStat {
   }
 
   @override
-  Future<List<RecentRecord>> getRecentRecord() async {
+  Future<List<RecentRecord>> getRecentRecord({required String token}) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'authorization': token};
+    _headers.removeWhere((k, v) => v == null);
     const Map<String, dynamic>? _data = null;
     final _result = await _dio
         .fetch<List<dynamic>>(_setStreamType<List<RecentRecord>>(Options(

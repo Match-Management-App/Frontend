@@ -24,7 +24,7 @@ class MyAppBar extends StatefulWidget {
 class _MyAppBarState extends State<MyAppBar> {
   late RestUser _restUser;
   String _userName = 'User';
-  late final token;
+  late final String? token;
 
   @override
   void initState() {
@@ -38,7 +38,7 @@ class _MyAppBarState extends State<MyAppBar> {
   }
 
   Future<void> _loadUserName() async {
-    try {
+    try { 
       token = await storage.read(key: 'accessToken');
 
       User user = await _restUser.getUser(token: 'Bearer $token');
