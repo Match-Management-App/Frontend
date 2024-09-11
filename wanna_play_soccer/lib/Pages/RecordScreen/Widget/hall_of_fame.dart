@@ -174,7 +174,6 @@ class _HOFWidgetState extends State<HOFWidget> {
 
       token = await storage.read(key: 'accessToken');
 
-      // Fetch data using the provided function
       List<HallOfFame> fetchedData = await widget.fetchData('Bearer $token');
 
       setState(() {
