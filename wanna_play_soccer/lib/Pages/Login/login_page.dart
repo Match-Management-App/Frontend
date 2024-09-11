@@ -110,7 +110,6 @@ class _LoginPageState extends State<LoginPage> {
       try {
         final OAuthToken token = await UserApi.instance.loginWithKakaoTalk();
 
-        // addTokenToLocalStorage(token);
         await loginWithKakao(token);
         navigateToHomeScreen();
         debugPrint('[INFO] 카카오톡 로그인 시도 | token: $token');
@@ -128,7 +127,6 @@ class _LoginPageState extends State<LoginPage> {
               await UserApi.instance.loginWithKakaoAccount();
           debugPrint('[INFO] 카카오 계정 로그인 시도 | token: $token');
 
-          // addTokenToLocalStorage(token);
           await loginWithKakao(token);
           navigateToHomeScreen();
         } catch (e) {
@@ -140,7 +138,6 @@ class _LoginPageState extends State<LoginPage> {
         final OAuthToken token = await UserApi.instance.loginWithKakaoAccount();
         debugPrint('[INFO] 카카오 계정 로그인 시도 | token: $token');
 
-        // addTokenToLocalStorage(token);
         await loginWithKakao(token);
         navigateToHomeScreen();
       } catch (e) {
@@ -159,6 +156,7 @@ class _LoginPageState extends State<LoginPage> {
       final login = await _restLogin.login(body: body);
 
       debugPrint('[JWT] accessToken: ${login.accessToken}');
+      debugPrint('[JWT] refreshToken: ${login.refreshToken}');
       await storage.write(key: 'accessToken', value: login.accessToken);
     } catch (e) {
       rethrow;

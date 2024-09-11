@@ -49,10 +49,11 @@ class _RestHOF implements RestHOF {
   }
 
   @override
-  Future<List<HallOfFame>> getHOFAssists() async {
+  Future<List<HallOfFame>> getHOFAssists({required String token}) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'authorization': token};
+    _headers.removeWhere((k, v) => v == null);
     const Map<String, dynamic>? _data = null;
     final _result = await _dio
         .fetch<List<dynamic>>(_setStreamType<List<HallOfFame>>(Options(
@@ -78,10 +79,11 @@ class _RestHOF implements RestHOF {
   }
 
   @override
-  Future<List<HallOfFame>> getHOFDefences() async {
+  Future<List<HallOfFame>> getHOFDefences({required String token}) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'authorization': token};
+    _headers.removeWhere((k, v) => v == null);
     const Map<String, dynamic>? _data = null;
     final _result = await _dio
         .fetch<List<dynamic>>(_setStreamType<List<HallOfFame>>(Options(
@@ -107,10 +109,11 @@ class _RestHOF implements RestHOF {
   }
 
   @override
-  Future<List<HallOfFame>> getHOFAttendance() async {
+  Future<List<HallOfFame>> getHOFAttendance({required String token}) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'authorization': token};
+    _headers.removeWhere((k, v) => v == null);
     const Map<String, dynamic>? _data = null;
     final _result = await _dio
         .fetch<List<dynamic>>(_setStreamType<List<HallOfFame>>(Options(

@@ -14,11 +14,14 @@ abstract class RestHOF {
       {@Header('authorization') required String token});
 
   @GET('/v1/record/assists/hall-of-fame')
-  Future<List<HallOfFame>> getHOFAssists();
+  Future<List<HallOfFame>> getHOFAssists(
+      {@Header('authorization') required String token});
 
   @GET('/v1/record/defences/hall-of-fame')
-  Future<List<HallOfFame>> getHOFDefences();
+  Future<List<HallOfFame>> getHOFDefences(
+      {@Header('authorization') required String token});
 
   @GET('/v1/record/attendance/hall-of-fame')
-  Future<List<HallOfFame>> getHOFAttendance();
+  Future<List<HallOfFame>> getHOFAttendance(
+      {@Header('authorization') required String token});
 }

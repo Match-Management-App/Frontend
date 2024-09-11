@@ -42,13 +42,14 @@ class _RecordChartState extends State<RecordChart> {
       recentRecords = await _restStat.getRecentRecord(token: 'Bearer $token');
 
       setState(() {
+        /// * 기록이 4개 미만인 경우 빈 기록을 추가
         paddedRecords = _padRecords(recentRecords);
         maxValue = _findMaxValue(paddedRecords);
       });
 
       debugPrint('[LOG] recentRecords: ${recentRecords.length}');
     } catch (e) {
-      debugPrint('Failed to load recent records: $e');
+      debugPrint('Failedto load recent records: $e');
     }
   }
 
