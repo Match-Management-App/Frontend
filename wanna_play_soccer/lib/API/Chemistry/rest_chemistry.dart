@@ -10,15 +10,18 @@ abstract class RestChemistry {
   factory RestChemistry(Dio dio, {String baseUrl}) = _RestChemistry;
 
   @GET('/v1/chemical/goals/worst')
-  Future<TopThree> getLeastAssisted();
-  // Future<ApiResponse<TopThree>> getLeastAssisted(@Header('Authorization') String token);
+  Future<TopThree> getLeastAssisted(
+      {@Header('authorization') required String token});
 
   @GET('/v1/chemical/goals/best')
-  Future<TopThree> getMostAssisted();
+  Future<TopThree> getMostAssisted(
+      {@Header('authorization') required String token});
 
   @GET('/v1/chemical/assists/worst')
-  Future<TopThree> getLeastAssistsToMyGoals();
+  Future<TopThree> getLeastAssistsToMyGoals(
+      {@Header('authorization') required String token});
 
   @GET('/v1/chemical/assists/best')
-  Future<TopThree> getMostAssistsToMyGoals();
+  Future<TopThree> getMostAssistsToMyGoals(
+      {@Header('authorization') required String token});
 }

@@ -19,10 +19,11 @@ class _RestChemistry implements RestChemistry {
   String? baseUrl;
 
   @override
-  Future<TopThree> getLeastAssisted() async {
+  Future<TopThree> getLeastAssisted({required String token}) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'authorization': token};
+    _headers.removeWhere((k, v) => v == null);
     const Map<String, dynamic>? _data = null;
     final _result =
         await _dio.fetch<Map<String, dynamic>>(_setStreamType<TopThree>(Options(
@@ -46,10 +47,11 @@ class _RestChemistry implements RestChemistry {
   }
 
   @override
-  Future<TopThree> getMostAssisted() async {
+  Future<TopThree> getMostAssisted({required String token}) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'authorization': token};
+    _headers.removeWhere((k, v) => v == null);
     const Map<String, dynamic>? _data = null;
     final _result =
         await _dio.fetch<Map<String, dynamic>>(_setStreamType<TopThree>(Options(
@@ -73,10 +75,11 @@ class _RestChemistry implements RestChemistry {
   }
 
   @override
-  Future<TopThree> getLeastAssistsToMyGoals() async {
+  Future<TopThree> getLeastAssistsToMyGoals({required String token}) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'authorization': token};
+    _headers.removeWhere((k, v) => v == null);
     const Map<String, dynamic>? _data = null;
     final _result =
         await _dio.fetch<Map<String, dynamic>>(_setStreamType<TopThree>(Options(
@@ -100,10 +103,11 @@ class _RestChemistry implements RestChemistry {
   }
 
   @override
-  Future<TopThree> getMostAssistsToMyGoals() async {
+  Future<TopThree> getMostAssistsToMyGoals({required String token}) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
-    final _headers = <String, dynamic>{};
+    final _headers = <String, dynamic>{r'authorization': token};
+    _headers.removeWhere((k, v) => v == null);
     const Map<String, dynamic>? _data = null;
     final _result =
         await _dio.fetch<Map<String, dynamic>>(_setStreamType<TopThree>(Options(

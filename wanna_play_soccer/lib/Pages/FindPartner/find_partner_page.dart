@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:wanna_play_soccer/API/Chemistry/rest_chemistry.dart';
 import 'package:wanna_play_soccer/Component/subtitle.dart';
 import 'package:wanna_play_soccer/Component/rank.dart';
 import 'package:wanna_play_soccer/Theme/my_colors.dart';
 import 'package:wanna_play_soccer/Theme/my_theme.dart';
+import 'package:wanna_play_soccer/Utils/env.dart';
+import 'package:wanna_play_soccer/Utils/global.dart';
 
 class FindPartnerPage extends StatelessWidget {
   const FindPartnerPage({super.key});
@@ -45,13 +48,19 @@ class FindPartnerPage extends StatelessWidget {
           physics: const ClampingScrollPhysics(),
           child: Padding(
             padding: EdgeInsets.fromLTRB(30, screenHeight * 0.1, 30, 40),
-            child: const Column(
+            child: Column(
               children: [
-                Padding(padding: EdgeInsets.only(top: 15)),
-                Subtitle(icon: "🥰", subtitle: "환상의 짝궁"),
-                PartnerRank(first: "USER", second: "USER", third: "USER"),
-                Subtitle(icon: "🤡", subtitle: "환장의 짝궁"),
-                PartnerRank(first: "USER", second: "USER", third: "USER"),
+                const Padding(padding: EdgeInsets.only(top: 15)),
+                const Subtitle(icon: "🥰", subtitle: "환상의 짝궁"),
+                PartnerRank(
+                  fetchData: (token) => RestChemistry(dio, baseUrl: Env.baseUrl)
+                      .getMostAssisted(token: token),
+                ),
+                const Subtitle(icon: "🤡", subtitle: "환장의 짝궁"),
+                PartnerRank(
+                  fetchData: (token) => RestChemistry(dio, baseUrl: Env.baseUrl)
+                      .getLeastAssisted(token: token),
+                ),
               ],
             ),
           ),
